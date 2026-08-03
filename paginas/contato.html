@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Contato</title>
+    <script type="module" src="../src/interface/cadastro/cadastroTela.js"></script>
+</head>
+
+<body>
+    <div class="menu-index">
+
+        <span>Menu</span>
+        <menu type="toolbar" class="opcao-menu">
+
+            <div><a href="index.html">Home</a></div>
+            <div><a href="agenda.html">Lista de contato</a></div>
+
+        </menu>
+
+
+    </div>
+    <div class="contato">
+
+        <form id="formulario-cadastro">
+            <div id="dados-pessoais">
+                <div id="campo-nome">
+                    <label for="nome">Nome</label>
+                    <input id="nome" name="nome" type="text" placeholder="Digite o nome do contato">
+                    <span id="alerta-nome" hidden></span>
+                </div>
+
+                <div id="campo-sobrenome">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input id="sobrenome" name="sobrenome" type="text" placeholder="Digite o sobrenome do contato">
+                    <span id="alerta-sobrenome" hidden></span>
+                </div>
+
+            </div>
+
+            <div id="campo-telefone">
+
+                <label for="telefone">Telefone</label>
+                <input id="telefone" name="telefone" type="text" placeholder="Digite o telefone">
+                <span id="alerta-telefone" hidden></span>
+
+            </div>
+
+            <div id="campo-email">
+
+                <label for="email">Email</label>
+                <input id="email" name="email" type="text" placeholder="Digite o email contato">
+                <span id="alerta-email" hidden></span>
+
+            </div>
+            <div id="botao-form">
+                <button id="botao-salvar" type="submit">Cadastrar contato</button>
+            </div>
+
+        </form>
+        <div id="contato-alertas">
+            <dialog id="caixa-alerta">
+
+                <div>
+                    <span id="alerta-contato-salvo"></span>
+                </div>
+                <button id="fechar-mensagem" type="button">fechar</button>
+
+            </dialog>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

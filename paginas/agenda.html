@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Lista de Contato</title>
+    <!-- <script type="module" src="../src/interface/agendaDados.js"></script> -->
+    <script type="module" src="../src/interface/agenda/agendaTela.js"></script>
+</head>
+
+<body>
+
+    <div class="menu-index">
+        <span>Menu</span>
+        <menu type="toolbar" class="opcao-menu">
+
+            <div><a href="index.html">Home</a></div>
+            <div><a href="contato.html">Cadastrar contato</a></div>
+
+        </menu>
+    </div>
+
+    <div id="dados-container">
+        <div id="busca-contato">
+
+            <input id="input-busca" placeholder="digite os dados para busca">
+            <button id="botao-busca" type="button">Buscar</button>
+
+        </div>
+
+        <span id="quantidade-contatos"></span>
+
+    </div>
+
+    <div id="tabela-container" class="lista-contato">
+        <table id="tabela-agenda">
+            <thead id="cabecalho">
+
+                <th> # </th>
+                <th> Nome </th>
+                <th> Sobrenome </th>
+                <th> Telefone </th>
+                <th> Email </th>
+
+            </thead>
+
+        </table>
+        <div>
+            <span id="alerta-sem-contato" hidden></span>
+
+        </div>
+    </div>
+    <div class="dialog-contato">
+
+        <dialog id="caixa-edicao">
+            <form id="formulario-edicao">
+                <div id="dados-pessoais">
+                    <div id="campo-nome">
+                        <label for="nome">Nome</label>
+                        <input id="nome" name="nome" type="text" placeholder="Digite o nome do contato">
+                        <span id="alerta-nome" hidden></span>
+                    </div>
+
+                    <div id="campo-sobrenome">
+                        <label for="sobrenome">Sobrenome</label>
+                        <input id="sobrenome" name="sobrenome" type="text" placeholder="Digite o sobrenome do contato">
+                        <span id="alerta-sobrenome" hidden></span>
+                    </div>
+
+                </div>
+
+                <div id="campo-telefone">
+
+                    <label for="telefone">Telefone</label>
+                    <input id="telefone" name="telefone" type="text" placeholder="Digite o telefone">
+                    <span id="alerta-telefone" hidden></span>
+
+                </div>
+
+                <div id="campo-email">
+
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="text" placeholder="Digite o email contato">
+                    <span id="alerta-email" hidden></span>
+
+                </div>
+                <div id="botao-form">
+
+                    <button id="salvar-edicao" type="submit">Salvar</button>
+
+                </div>
+
+            </form>
+
+            <button id="btn-excluir" type="button">Excluir</button>
+            <button id="btn-sair" type="button">Sair</button>
+        </dialog>
+
+        <dialog id="caixa-alertas">
+            <div id="container-exclusao" hidden>
+                <span id="alerta-exclusao">Deseja realmente excluir o contato?</span>
+                <button id="btn-sim" type="button">Sim</button>
+                <button id="btn-nao" type="button">Não</button>
+            </div>
+
+            <div id="container-alteracao" hidden>
+
+                <span id="alerta-alteracao">Dados alterado com sucesso!</span>
+                <button id="btn-sair-alteracao" type="button">Sair</button>
+
+            </div>
+
+        </dialog>
+    </div>
+
+
+</body>
+
+</html>
