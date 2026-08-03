@@ -48,7 +48,7 @@ jobs:
         run: |
           mkdir public
           cp -R ativos css paginas src public/
-          printf '%s\n' '<!doctype html>' '<html lang="pt-BR">' '<meta charset="utf-8">' '<meta http-equiv="refresh" content="0; url=paginas/index.html">' '<title>Agenda</title>' '<a href="paginas/index.html">Abrir Agenda</a>' > public/index.html
+          cp index.html public/
 
       - name: Enviar arquivos do site
         uses: actions/upload-pages-artifact@v3

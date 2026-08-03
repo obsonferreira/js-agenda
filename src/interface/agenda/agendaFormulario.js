@@ -2,10 +2,7 @@ import { editarContato } from "../../repositorio/agendaRepositorio.js";
 import { validacaoGeral } from "../../validadores/compartilhado.js";
 
 export function editarFormulario(dados) {
-    console.log(dados);
-
     editarContato(dados.pessoa, dados.referencia);
-
 };
 
 export function verificaEdicao(dados,referencia) {
