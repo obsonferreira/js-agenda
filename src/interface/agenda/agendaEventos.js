@@ -11,6 +11,7 @@ import { buscaContato } from "../../repositorio/agendaRepositorio.js";
 import { mensagemContatoAlterado } from "../compartilhado/dialog.js";
 
 let referencia;
+let dadosEdicao;
 
 function iniciarAgenda() {
     const lista = retornaLista();
@@ -29,37 +30,32 @@ function iniciarAgenda() {
             elementoTabelaAgenda.tabela.appendChild(tabela);
         };
     });
-
 };
 
 function iniciarEdicao() {
     elementoFormularioAgenda.formulario.addEventListener("submit", (event) => {
         event.preventDefault();
         const pessoa = processaFormulario(elementoFormularioAgenda);
-        console.log(pessoa);
-        
-        const formularioEditado = verificaEdicao(pessoa,referencia);
-        const duplicidade = validaDuplicidadeFormulario(pessoa)
+        const formularioNaoEditado = verificaEdicao(pessoa, dadosEdicao);
+        const validacao = validaFormulario(pessoa);
+        const duplicidade = validaDuplicidadeFormulario(formularioNaoEditado);
+
         const dadosFormulario = {
             pessoa: pessoa,
-            validacao: validaFormulario(pessoa),
+            validacao: validacao,
             duplicidade: duplicidade,
             referencia: referencia
         };
 
-
-        console.log(formularioEditado);
-
-
         if (dadosFormulario.validacao.dadosInvalidos) {
             exibirErrosValidacao(dadosFormulario.validacao, elementoAlertaAgenda);
-        } else if (dadosFormulario.duplicidade.dadosInvalidos && formularioEditado.caposEditados) {
+        } else if (dadosFormulario.duplicidade.dadosInvalidos) {
             exibirErrosValidacao(dadosFormulario.duplicidade, elementoAlertaAgenda);
         } else {
             ocultaErrosValidacao(elementoAlertaAgenda);
         };
 
-        if (!dadosFormulario.validacao.dadosInvalidos && (!dadosFormulario.duplicidade.dadosInvalidos || formularioEditado.caposEditados)) {
+        if (!dadosFormulario.validacao.dadosInvalidos && !dadosFormulario.duplicidade.dadosInvalidos) {
             editarFormulario(dadosFormulario);
             mensagemContatoAlterado();
         };
@@ -73,8 +69,9 @@ function editarContatoAgenda() {
 
         if (click.tagName === 'BUTTON') {
             const linhaTabela = click.closest('tr');
-            const dados = retornaDadosTabela(linhaTabela)
-            referencia = preencheFormulario(elementoFormularioAgenda.formulario, dados);
+            const dadosTabela = retornaDadosTabela(linhaTabela);
+            dadosEdicao = dadosTabela;
+            referencia = preencheFormulario(elementoFormularioAgenda.formulario, dadosTabela);
         };
 
     });

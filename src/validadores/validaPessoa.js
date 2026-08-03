@@ -1,4 +1,3 @@
-import { retornaLista } from "../repositorio/agendaRepositorio.js";
 import { validacaoGeral } from "./compartilhado.js";
 import { validaDuplicidade } from "./validaDuplicidade.js";
 
@@ -26,10 +25,3 @@ export function validaPessoa(pessoa) {
 
     return validacao;
 };
-
-export function verificaDuplicidade(pessoa) {
-
-    return validaDuplicidade(pessoa, retornaLista());
-};
-
-

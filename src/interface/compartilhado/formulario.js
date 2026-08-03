@@ -1,14 +1,16 @@
 import { exibirMensagem, ocultarAtributo, exibirAtributo } from "../compartilhado/notificacoes.js";
 import { criarPessoa } from "../../servicos/agendaService.js";
-import { validaPessoa, verificaDuplicidade } from "../../validadores/validaPessoa.js";
+import { validaPessoa } from "../../validadores/validaPessoa.js";
 import { validaEntrada } from "../../validadores/validaCampo.js";
 import { validacaoGeral } from './../../validadores/compartilhado.js';
 import { elementoAlerta } from "../cadastro/elementosCadastro.js";
+import { validaDuplicidade } from "../../validadores/validaDuplicidade.js";
+import { buscaDuplicidade } from "../../repositorio/agendaRepositorio.js";
 
 export function exibirErrosValidacao(validacao, elementoAlerta) {
 
     for (const chave in validacao) {
-        const valorInvalido = (chave === "dadosInvalidos") ;
+        const valorInvalido = (chave === "dadosInvalidos");
         if (!valorInvalido) {
             if (validacao[chave].erro) {
                 exibirErrosCampos(validacao[chave], elementoAlerta);
@@ -60,9 +62,10 @@ export function validaFormulario(pessoa) {
     return validaPessoa(pessoa);
 };
 
-export function validaDuplicidadeFormulario(pessoa) {
-
-    return verificaDuplicidade(pessoa);
+export function validaDuplicidadeFormulario(contato) {
+    const resultado = buscaDuplicidade(contato);
+    resultado.dadosInvalidos = validacaoGeral(resultado)
+    return resultado;
 
 };
 

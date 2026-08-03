@@ -8,10 +8,13 @@ function iniciarCadastro() {
     elementoCadastro.formulario.addEventListener("submit", (event) => {
         event.preventDefault();
         const pessoa = processaFormulario(elementoCadastro);
+        
+        const validacao = validaFormulario(pessoa);
+        const duplicidade = validaDuplicidadeFormulario(validacao);
         const dadosFormulario = {
             pessoa: pessoa,
-            validacao: validaFormulario(pessoa),
-            duplicidade: validaDuplicidadeFormulario(pessoa)
+            validacao: validacao,
+            duplicidade: duplicidade
         };
 
         if (dadosFormulario.validacao.dadosInvalidos) {

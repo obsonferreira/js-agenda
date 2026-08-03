@@ -16,7 +16,7 @@ export function retornaComposicaoEmail(input) {
     let posicaoArroba = input.indexOf('@');
 
     componentes.quantidadeEspaco = input.replace(/[^\s]/g, "").length;
-    componentes.tamnhoInput = input.length;
+    componentes.tamanhoInput = input.length;
 
     componentes.idEmail = input.substring(0, posicaoArroba);
     componentes.caracteresInvalidosIdEmail = componentes.idEmail.replace(/[\w_.]/g, "");
@@ -33,7 +33,7 @@ export function retornaComposicaoEmail(input) {
     componentes.caracterValidoEmail = input.replace(/[^@]/g, "");
 
     componentes.primeiroDigitoEmail = input.at(0);
-    componentes.ultimoDigitoEmail = input.at(componentes.tamnhoInput - 1);
+    componentes.ultimoDigitoEmail = input.at(componentes.tamanhoInput - 1);
 
     return componentes;
 };

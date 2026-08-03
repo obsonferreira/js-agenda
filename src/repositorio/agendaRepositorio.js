@@ -1,4 +1,5 @@
 import { agendaRepositorio } from "../modelos/agenda.js";
+import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
 
 agendaRepositorio.contatos = carregarContatos();
 
@@ -57,4 +58,31 @@ function retornaId(input) {
     const id = idLista.values();
 
     return id.next().value;
+};
+
+export function buscaDuplicidade(contato) {
+    const resultado = {};
+    if (!contato.email.erro) {
+        resultado.email = validaDuplicidade(contato.email, retornaLista());
+    } else {
+        resultado.email = {
+            campo: contato.email.campo,
+            valor: contato.email.valor,
+            erro: false,
+            mensagem: ""
+        };
+    };
+
+    if (!contato.telefone.erro) {
+        resultado.telefone = validaDuplicidade(contato.telefone, retornaLista());
+    } else {
+        resultado.telefone = {
+            campo: contato.telefone.campo,
+            valor: contato.telefone.valor,
+            erro: false,
+            mensagem: ""
+
+        };
+    };
+    return resultado;
 };
