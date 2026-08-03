@@ -1,0 +1,60 @@
+name: Validar e publicar no GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verificar sintaxe JavaScript
+        shell: bash
+        run: find src -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+
+  publicar:
+    needs: validar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar arquivos do site
+        shell: bash
+        run: |
+          mkdir public
+          cp -R ativos css paginas src public/
+          printf '%s\n' '<!doctype html>' '<html lang="pt-BR">' '<meta charset="utf-8">' '<meta http-equiv="refresh" content="0; url=paginas/index.html">' '<title>Agenda</title>' '<a href="paginas/index.html">Abrir Agenda</a>' > public/index.html
+
+      - name: Enviar arquivos do site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

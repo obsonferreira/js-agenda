@@ -1,0 +1,18 @@
+# Dependencias instaladas localmente
+node_modules/
+
+# Relatorios e arquivos gerados por ferramentas
+coverage/
+dist/
+*.log
+
+# Configuracoes locais do editor e do sistema operacional
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Variaveis e segredos locais
+.env
+.env.*
+!.env.example
