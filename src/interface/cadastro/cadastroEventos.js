@@ -1,11 +1,12 @@
 import { elementoAlerta, elementoBotoes, elementoCadastro, elementoDialogo } from "./elementosCadastro.js";
-import { validaFormulario, bloquearBotao, desbloquearBotao, validaCamposObrigatorio, processaFormulario, exibirErrosValidacao, validaDuplicidadeFormulario } from "../compartilhado/formulario.js";
+import { validaFormulario, bloquearBotao, desbloquearBotao, validaCamposObrigatorio, processaFormulario, exibirErrosValidacao, validaDuplicidadeFormulario, ocultaErrosValidacao } from "../compartilhado/formulario.js";
 import { enviarFormulario } from "./cadastroFormulario.js";
 import { Pessoa } from "../../modelos/pessoa.js";
 
 
 function iniciarCadastro() {
     elementoCadastro.formulario.addEventListener("submit", (event) => {
+        bloquearBotao(elementoBotoes);
         event.preventDefault();
         const pessoa = processaFormulario(elementoCadastro);
 
@@ -39,7 +40,12 @@ function sairMensagem() {
 function validaCamposFormulario() {
 
     bloquearBotao(elementoBotoes);
-    elementoCadastro.formulario.addEventListener('input', () => {
+    elementoCadastro.formulario.addEventListener('input', (evento) => {
+        const campoEdicao = evento.target;
+
+        if (campoEdicao.name) {
+            ocultaErrosValidacao(campoEdicao.name, elementoAlerta)
+        };
         const campos = validaCamposObrigatorio(elementoCadastro.formulario);
         desbloquearBotao(!campos.dadosInvalidos, elementoBotoes);
         if (campos.dadosInvalidos) {

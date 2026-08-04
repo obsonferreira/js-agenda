@@ -26,10 +26,14 @@ function analizaErrosValidacao(dados, elementoAlerta) {
     if (dados.erro) {
         exibirAtributo(elementoAlerta[dados.campo]);
         exibirMensagem(elementoAlerta[dados.campo], dados.mensagem);
-    } else {
-        ocultarAtributo(elementoAlerta[dados.campo]);
     };
 };
+
+export function ocultaErrosValidacao(campo,elementoAlerta) {
+
+    ocultarAtributo(elementoAlerta[campo]);
+;
+}
 
 export function desbloquearBotao(validacao, elemento) {
 

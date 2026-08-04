@@ -1,6 +1,6 @@
 import { ocultarAtributo, exibirAtributo, exibirMensagem } from "./../compartilhado/notificacoes.js";
 import { exibirErrosValidacao, processaFormulario, validaDuplicidadeFormulario, validaFormulario } from "./../compartilhado/formulario.js";
-import { bloquearBotao, desbloquearBotao, validaCamposObrigatorio } from "./../compartilhado/formulario.js";
+import { bloquearBotao, desbloquearBotao, validaCamposObrigatorio, ocultaErrosValidacao } from "./../compartilhado/formulario.js";
 import { elementoTabelaAgenda, elementoDialogoAlertasAgenda, elementoBuscaAgenda } from "./elementosAgenda.js";
 import { elementoVisorAgenda, elementoAlertaAgenda, elementoDialogoEdicao, elementoFormularioAgenda } from "./elementosAgenda.js";
 import { editarFormulario, verificaEdicao } from "./agendaFormulario.js";
@@ -78,9 +78,13 @@ function editarContatoAgenda() {
 
 function validaCamposFormulario() {
 
-    elementoFormularioAgenda.formulario.addEventListener('input', () => {
-        const campos = validaCamposObrigatorio(elementoFormularioAgenda.formulario);
+    elementoFormularioAgenda.formulario.addEventListener('input', (evento) => {
+        const campoEdicao = evento.target;
 
+        if (campoEdicao.name) {
+            ocultaErrosValidacao(campoEdicao.name, elementoAlertaAgenda)
+        };
+        const campos = validaCamposObrigatorio(elementoFormularioAgenda.formulario);
         desbloquearBotao(!campos.dadosInvalidos, elementoFormularioAgenda);
         if (campos.dadosInvalidos) {
             exibirErrosValidacao(campos, elementoAlertaAgenda);
