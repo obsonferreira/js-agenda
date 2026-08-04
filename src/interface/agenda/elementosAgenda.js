@@ -27,6 +27,7 @@ export const elementoDialogoAlertasAgenda = {
     mensagemAlteracao: document.getElementById("container-alteracao"),
     mensagemExclusao: document.getElementById("container-exclusao")
 };
+
 export const elementoVisorAgenda = {
     contador: document.getElementById("quantidade-contatos")
 };
@@ -41,5 +42,3 @@ export const elementoTabelaAgenda = {
     tabela: document.getElementById("tabela-agenda"),
     
 };
-
-// cabecalho: document.getElementById('cabecalho')

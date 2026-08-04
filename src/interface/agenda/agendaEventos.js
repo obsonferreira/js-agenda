@@ -1,5 +1,5 @@
 import { ocultarAtributo, exibirAtributo, exibirMensagem } from "./../compartilhado/notificacoes.js";
-import { exibirErrosCampos, exibirErrosValidacao, ocultaErrosValidacao, processaFormulario, validaDuplicidadeFormulario, validaFormulario } from "./../compartilhado/formulario.js";
+import { exibirErrosValidacao, processaFormulario, validaDuplicidadeFormulario, validaFormulario } from "./../compartilhado/formulario.js";
 import { bloquearBotao, desbloquearBotao, validaCamposObrigatorio } from "./../compartilhado/formulario.js";
 import { elementoTabelaAgenda, elementoDialogoAlertasAgenda, elementoBuscaAgenda } from "./elementosAgenda.js";
 import { elementoVisorAgenda, elementoAlertaAgenda, elementoDialogoEdicao, elementoFormularioAgenda } from "./elementosAgenda.js";
@@ -46,13 +46,12 @@ function iniciarEdicao() {
             duplicidade: duplicidade,
             referencia: referencia
         };
-
+        
         if (dadosFormulario.validacao.dadosInvalidos) {
             exibirErrosValidacao(dadosFormulario.validacao, elementoAlertaAgenda);
+
         } else if (dadosFormulario.duplicidade.dadosInvalidos) {
             exibirErrosValidacao(dadosFormulario.duplicidade, elementoAlertaAgenda);
-        } else {
-            ocultaErrosValidacao(elementoAlertaAgenda);
         };
 
         if (!dadosFormulario.validacao.dadosInvalidos && !dadosFormulario.duplicidade.dadosInvalidos) {
@@ -85,8 +84,6 @@ function validaCamposFormulario() {
         desbloquearBotao(!campos.dadosInvalidos, elementoFormularioAgenda);
         if (campos.dadosInvalidos) {
             exibirErrosValidacao(campos, elementoAlertaAgenda);
-        } else {
-            ocultaErrosValidacao(elementoAlertaAgenda);
         };
 
     });

@@ -8,32 +8,27 @@ import { validaDuplicidade } from "../../validadores/validaDuplicidade.js";
 import { buscaDuplicidade } from "../../repositorio/agendaRepositorio.js";
 
 export function exibirErrosValidacao(validacao, elementoAlerta) {
-
-    for (const chave in validacao) {
-        const valorInvalido = (chave === "dadosInvalidos");
-        if (!valorInvalido) {
-            if (validacao[chave].erro) {
-                exibirErrosCampos(validacao[chave], elementoAlerta);
-            };
-        };
+    if (validacao.nome) {
+        analizaErrosValidacao(validacao.nome, elementoAlerta);
+    };
+    if (validacao.sobrenome) {
+        analizaErrosValidacao(validacao.sobrenome, elementoAlerta);
+    };
+    if (validacao.telefone) {
+        analizaErrosValidacao(validacao.telefone, elementoAlerta);
+    };
+    if (validacao.email) {
+        analizaErrosValidacao(validacao.email, elementoAlerta);
     };
 };
 
-export function ocultaErrosValidacao(elementoAlerta) {
-
-    for (const chave in elementoAlerta) {
-
-        if (elementoAlerta[chave]) {
-            ocultarAtributo(elementoAlerta[chave]);
-        };
+function analizaErrosValidacao(dados, elementoAlerta) {
+    if (dados.erro) {
+        exibirAtributo(elementoAlerta[dados.campo]);
+        exibirMensagem(elementoAlerta[dados.campo], dados.mensagem);
+    } else {
+        ocultarAtributo(elementoAlerta[dados.campo]);
     };
-};
-
-export function exibirErrosCampos(dados, elementoAlerta) {
-
-    exibirAtributo(elementoAlerta[dados.campo]);
-    exibirMensagem(elementoAlerta[dados.campo], dados.mensagem);
-
 };
 
 export function desbloquearBotao(validacao, elemento) {
