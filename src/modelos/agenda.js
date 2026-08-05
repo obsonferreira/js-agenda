@@ -1,6 +1,4 @@
 import { geraId } from "../validadores/validaId.js";
-import { Pessoa } from "./pessoa.js";
-import { Contato } from "./contato.js";
 import { atualizarPessoa } from "../servicos/agendaService.js";
 
 export class Agenda {
