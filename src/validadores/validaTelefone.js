@@ -1,4 +1,4 @@
-import { retornaMensagemCaracterInvalido, retornaMensagemEspaco, retornaMensagemTamanho, retornaMensagemTamanhoMinimo } from '../mensagens/mensagensValidacao.js';
+import { retornaMensagemCaracterInvalido, retornaMensagemEspaco, retornaMensagemTamanhoMinimo } from '../mensagens/mensagensValidacao.js';
 import { retornaComposicaoInput } from './analisaTexto.js';
 
 export function validaTelefone(input, campo) {
