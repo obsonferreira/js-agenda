@@ -1,5 +1,4 @@
 import { validacaoGeral } from "./compartilhado.js";
-import { validaDuplicidade } from "./validaDuplicidade.js";
 
 export function validaPessoa(pessoa) {
 
