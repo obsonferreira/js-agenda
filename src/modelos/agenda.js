@@ -1,5 +1,4 @@
 import { geraId } from "../validadores/validaId.js";
-// import { atualizarPessoa } from "../servicos/agendaService.js";
 
 export class Agenda {
     constructor() {
@@ -30,19 +29,9 @@ export class Agenda {
     };
 
     excluir(referencia) {
-        let index;
+    
+        this.contatos.splice(referencia, 1);
 
-        this.contatos.forEach((pessoa) => {
-
-            if (pessoa.id === referencia) {
-                index = this.contatos.indexOf(pessoa);
-            };
-
-        });
-
-        if (index > -1) {
-            this.contatos.splice(index, 1);
-        };
     };
 };
 

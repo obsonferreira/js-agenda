@@ -11,13 +11,17 @@ export function salvarContato(pessoa) {
 
 export function editarContato(dados, parametro) {
     const pessoa = agendaRepositorio.buscar(parametro);
-    const novaPessoa = atualizarPessoa(pessoa,dados);
+    const novaPessoa = atualizarPessoa(pessoa, dados);
     agendaRepositorio.atualizar(novaPessoa, parametro);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
 
 export function deletarContato(referencia) {
-    agendaRepositorio.excluir(referencia);
+
+    const index = agendaRepositorio.contatos.findIndex((pessoa => pessoa.id === referencia));
+    if (index >= 0) {
+        agendaRepositorio.excluir(index);
+    };
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
 
