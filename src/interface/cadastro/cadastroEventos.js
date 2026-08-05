@@ -1,8 +1,6 @@
 import { elementoAlerta, elementoBotoes, elementoCadastro, elementoDialogo } from "./elementosCadastro.js";
 import { validaFormulario, bloquearBotao, desbloquearBotao, validaCamposObrigatorio, processaFormulario, exibirErrosValidacao, validaDuplicidadeFormulario, ocultaErrosValidacao } from "../compartilhado/formulario.js";
 import { enviarFormulario } from "./cadastroFormulario.js";
-import { Pessoa } from "../../modelos/pessoa.js";
-
 
 function iniciarCadastro() {
     elementoCadastro.formulario.addEventListener("submit", (event) => {
