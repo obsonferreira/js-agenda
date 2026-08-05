@@ -1,3 +1,4 @@
+import { retornaMensagemCaracterInvalido, retornaMensagemEspaco, retornaMensagemTamanho, retornaMensagemTamanhoMinimo } from '../mensagens/mensagensValidacao.js';
 import { retornaComposicaoInput } from './analisaTexto.js';
 
 export function validaTelefone(input, campo) {
@@ -11,7 +12,7 @@ export function validaTelefone(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `Telefone não pode ter espaço, verifique o telefone digitado!`
+            mensagem: retornaMensagemEspaco(campo)
         };
 
     } else if (validacao.caracteresInvalidos) {
@@ -20,7 +21,7 @@ export function validaTelefone(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `Telefone contem: "${validacao.caracteres}", ${(validacao.caracteres.length === 1) ? "digito invalido" : "digitos invalidos"}!`
+            mensagem: retornaMensagemCaracterInvalido(campo,validacao.caracteres)
         };
 
     } else if (validacao.tamanhoMenor) {
@@ -29,7 +30,7 @@ export function validaTelefone(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: "Telefone faltando digitos, digite os 9 digitos!"
+            mensagem: retornaMensagemTamanhoMinimo(campo,9)
         };
 
     } else if (validacao.tamanhoMaior) {

@@ -7,8 +7,20 @@ export function validaDuplicidade(input, lista) {
     };
 
     if (resultadoBusca.dado) {
-        return { campo: input.campo, valor: input.valor, id: lista.find(usuario => usuario.contato[input.campo] === input.valor).id, erro: resultadoBusca.dado, mensagem: `${input.campo} existente!` };
+        return {
+            campo: input.campo,
+            valor: input.valor,
+            id: lista.find(usuario => usuario.contato[input.campo] === input.valor).id,
+            erro: resultadoBusca.dado,
+            mensagem: `${input.campo} existente!`
+        };
     } else {
-        return { campo: input.campo, valor: input.valor, id: '', erro: resultadoBusca.dado, mensagem: "" };
+        return {
+            campo: input.campo,
+            valor: input.valor,
+            id: '',
+            erro: resultadoBusca.dado,
+            mensagem: ""
+        };
     };
 };

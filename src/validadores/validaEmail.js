@@ -1,3 +1,4 @@
+import { retornaMensagemCaracterInvalido, retornaMensagemEspaco } from "../mensagens/mensagensValidacao.js";
 import { retornaComposicaoEmail } from "./analisaTexto.js";
 
 export function validaEmail(input, campo) {
@@ -11,7 +12,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `Email não pode ter espaço, verifique o email digitado!`
+            mensagem: retornaMensagemEspaco(campo)
         };
 
     } else if (validacao.nomeDominio) {
@@ -20,7 +21,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `O email falta nome do dominio ou faltando digitos, verifique o email digitado!`
+            mensagem: `O email falta nome do domínio ou faltando dígitos, verifique o email digitado!`
         };
 
     } else if (validacao.complementoDominio) {
@@ -74,7 +75,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `Email contém:  ${componentes.caracteresInvalidosIdEmail.length > 1 ? "digitos inválidos:" : "digito inválido:"} " ${componentes.caracteresInvalidosIdEmail} ", verifique o email digitado!`
+            mensagem: retornaMensagemCaracterInvalido(campo,componentes.caracterConsecutivosIdEmail)
         };
 
     } else if (validacao.caracteresInvalidosDominioEmail) {
@@ -83,7 +84,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `Domínio do email contém: ${componentes.caracteresInvalidosDominioEmail.length > 1 ? "digitos inválidos:" : "digito inválido:"} " ${componentes.caracteresInvalidosDominioEmail} ", verifique o email digitado!`
+            mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosDominioEmail)
         };
 
     } else if (validacao.inicioInvalido) {

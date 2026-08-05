@@ -9,7 +9,7 @@ export function validaEntrada(campo) {
             campo: campo.name,
             valor: campo.value,
             erro: true,
-            mensagem: `Campo obrigatório, digite um ${campo.name} válido!`
+            mensagem: `${campo.name} obrigatório, digite um ${campo.name} válido!`
         };
 
     }else if (componentes.tamanhoInput > 30) {

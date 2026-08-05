@@ -1,3 +1,4 @@
+import { retornaMensagemEspaco, retornaMensagemTamanho, retornaMensagemTamanhoMinimo } from '../mensagens/mensagensValidacao.js';
 import { retornaComposicaoInput } from './analisaTexto.js';
 
 export function validaNome(input, campo) {
@@ -12,7 +13,7 @@ export function validaNome(input, campo) {
             campo: campo,
             valor: inputMinusculo,
             erro: true,
-            mensagem: `Campo não pode ter espaço, verifique o campo novamente!`
+            mensagem: retornaMensagemEspaco(campo)
         };
 
     } else if (validacao.caracteresInvalidos) {
@@ -21,7 +22,7 @@ export function validaNome(input, campo) {
             campo: campo,
             valor: inputMinusculo,
             erro: true,
-            mensagem: `Campo contem: "${validacao.caracteres}", ${(validacao.caracteres.length === 1) ? "digito invalido" : "digitos invalidos"}!`
+            mensagem: retornaMensagemCaracterInvalido(campo, validacao.caracteres)
         };
 
     } else if (validacao.tamanho) {
@@ -30,7 +31,7 @@ export function validaNome(input, campo) {
             campo: campo,
             valor: inputMinusculo,
             erro: true,
-            mensagem: "Campo curto, campo deve ter minimo 3 letras!"
+            mensagem: retornaMensagemTamanhoMinimo(campo,3)
         };
 
     } else {
