@@ -18,10 +18,7 @@ export function editarContato(dados, parametro) {
 
 export function deletarContato(referencia) {
 
-    const index = agendaRepositorio.contatos.findIndex((pessoa => pessoa.id === referencia));
-    if (index >= 0) {
-        agendaRepositorio.excluir(index);
-    };
+    agendaRepositorio.excluir(referencia);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
 

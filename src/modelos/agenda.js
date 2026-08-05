@@ -29,8 +29,10 @@ export class Agenda {
     };
 
     excluir(referencia) {
-    
-        this.contatos.splice(referencia, 1);
+        const index = this.contatos.findIndex((pessoa => pessoa.id === referencia));
+        if (index >= 0) {
+            this.contatos.splice(index, 1);
+        };
 
     };
 };
