@@ -13,7 +13,6 @@ export function criarPessoa(dadosObjeto) {
 };
 
 export function atualizarPessoa(pessoa, dados){
-
     const novaPessoa = criarPessoa(pessoa)
 
     novaPessoa.atualizarNome(dados.nome);

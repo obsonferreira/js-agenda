@@ -1,4 +1,5 @@
 import { agendaRepositorio } from "../modelos/agenda.js";
+import { atualizarPessoa } from "../servicos/agendaService.js";
 import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
 
 agendaRepositorio.contatos = carregarContatos();
@@ -9,7 +10,9 @@ export function salvarContato(pessoa) {
 };
 
 export function editarContato(dados, parametro) {
-    agendaRepositorio.atualizar(dados, parametro);
+    const pessoa = agendaRepositorio.buscar(parametro);
+    const novaPessoa = atualizarPessoa(pessoa,dados);
+    agendaRepositorio.atualizar(novaPessoa, parametro);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
 
@@ -19,7 +22,6 @@ export function deletarContato(referencia) {
 };
 
 export function buscaContato(input) {
-
     let idContato = retornaId(input);
 
     return agendaRepositorio.buscar(idContato);
@@ -48,8 +50,6 @@ function retornaId(input) {
     const lista = agendaRepositorio.listar();
 
     const dadosId = {
-        nome: lista.find(usuario => usuario.nome === input.nome).id,
-        sobrenome: lista.find(usuario => usuario.sobrenome === input.sobrenome).id,
         telefone: lista.find(usuario => usuario.contato.telefone === input.contato.telefone).id,
         email: lista.find(usuario => usuario.contato.email === input.contato.email).id
     };

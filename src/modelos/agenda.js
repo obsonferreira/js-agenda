@@ -1,5 +1,5 @@
 import { geraId } from "../validadores/validaId.js";
-import { atualizarPessoa } from "../servicos/agendaService.js";
+// import { atualizarPessoa } from "../servicos/agendaService.js";
 
 export class Agenda {
     constructor() {
@@ -21,9 +21,7 @@ export class Agenda {
     atualizar(dados, referencia) {
 
         let pessoa = this.contatos.find(usuario => usuario.id === referencia);
-
-        const novaPessoa = atualizarPessoa(pessoa, dados);
-        Object.assign(pessoa, novaPessoa);
+        Object.assign(pessoa, dados);
     };
 
     buscar(referencia) {
