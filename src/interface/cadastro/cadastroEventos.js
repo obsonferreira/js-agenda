@@ -15,13 +15,13 @@ function iniciarCadastro() {
             duplicidade: duplicidade
         };
 
-        if (dadosFormulario.validacao.dadosInvalidos) {
-            exibirErrosValidacao(dadosFormulario.validacao, elementoAlerta);
-        } else if (dadosFormulario.duplicidade.dadosInvalidos) {
-            exibirErrosValidacao(dadosFormulario.duplicidade, elementoAlerta);
+        if (validacao.dadosInvalidos) {
+            exibirErrosValidacao(validacao, elementoAlerta);
+        } else if (duplicidade.dadosInvalidos) {
+            exibirErrosValidacao(duplicidade, elementoAlerta);
         };
 
-        if (!dadosFormulario.validacao.dadosInvalidos && !dadosFormulario.duplicidade.dadosInvalidos) {
+        if (!validacao.dadosInvalidos && !duplicidade.dadosInvalidos) {
             enviarFormulario(dadosFormulario);
             elementoCadastro.formulario.reset();
         };
