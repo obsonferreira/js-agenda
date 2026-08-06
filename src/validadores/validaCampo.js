@@ -1,31 +1,39 @@
+import { retornaMensagemCampoObrigatorio, retornaMensagemTamanhoMaximo } from "../mensagens/mensagensValidacao.js";
 import { retornaComposicaoInput } from "./analisaTexto.js";
 
-export function validaEntrada(campo) {
-    const componentes = retornaComposicaoInput(campo.value); 
+export function validaEntrada(dados) {
+    const componentes = retornaComposicaoInput(dados.valor);
+    const tamanhoMaximo = (dados) => {
+        if (dados.campo === 'telefone') {
+            return 9;
+        } else if (dados.campo === 'email') {
+            return 40;
+        } else {
+            return 20;
+        };
+    };
 
     if (componentes.quantidadeEspaco === componentes.tamanhoInput) {
-
         return {
-            campo: campo.name,
-            valor: campo.value,
+            campo: dados.campo,
+            valor: dados.valor,
             erro: true,
-            mensagem: `${campo.name} obrigatório, digite um ${campo.name} válido!`
+            mensagem: retornaMensagemCampoObrigatorio(dados.campo)
         };
 
-    }else if (componentes.tamanhoInput > 30) {
+    } else if (componentes.tamanhoInput > tamanhoMaximo(dados)) {
         return {
-            campo: campo.name,
-            valor:campo.value,
+            campo: dados.campo,
+            valor: dados.valor,
             erro: true,
-            mensagem: `Tamanho máximo atingido, digite um ${campo.name} válido!`
+            mensagem: retornaMensagemTamanhoMaximo(dados.campo, tamanhoMaximo(dados))
         };
     } else {
         return {
-            campo: campo.name,
-            valor: campo.value,
+            campo: dados.campo,
+            valor: dados.valor,
             erro: false,
             mensagem: ``
         };
     };
-        
 };

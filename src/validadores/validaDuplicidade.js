@@ -12,7 +12,7 @@ export function validaDuplicidade(input, lista) {
             valor: input.valor,
             id: lista.find(usuario => usuario.contato[input.campo] === input.valor).id,
             erro: resultadoBusca.dado,
-            mensagem: `${input.campo} existente!`
+            mensagem: `${input.campo} já cadastrado.`
         };
     } else {
         return {

@@ -27,10 +27,10 @@ function analizaErrosValidacao(dados, elementoAlerta) {
     };
 };
 
-export function ocultaErrosValidacao(campo,elementoAlerta) {
+export function ocultaErrosValidacao(campo, elementoAlerta) {
 
     ocultarAtributo(elementoAlerta[campo]);
-;
+    ;
 }
 
 export function desbloquearBotao(validacao, elemento) {
@@ -67,12 +67,19 @@ export function validaDuplicidadeFormulario(contato) {
 };
 
 export function validaCamposObrigatorio(dadosFormulario) {
-
     const dados = {
-        nome: validaEntrada(dadosFormulario['nome']),
-        telefone: validaEntrada(dadosFormulario['telefone']),
-        email: validaEntrada(dadosFormulario['email'])
+        nome: validaEntrada(retornaDadosCampos(dadosFormulario['nome'])),
+        telefone: validaEntrada(retornaDadosCampos(dadosFormulario['telefone'])),
+        email: validaEntrada(retornaDadosCampos(dadosFormulario['email']))
     };
     dados.dadosInvalidos = validacaoGeral(dados);
     return dados;
+};
+
+export function retornaDadosCampos(formulario) {
+
+    return {
+        campo: formulario.name,
+        valor: formulario.value
+    }
 };

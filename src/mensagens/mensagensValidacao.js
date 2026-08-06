@@ -18,14 +18,14 @@ export function retornaMensagemTamanhoMinimo(campo, tamanhoMinimo) {
 };
 
 export function retornaMensagemTamanhoMaximo(campo, tamanhoMaximo) {
-    const palavraComplementar = (campo) => {
+    const mensagem = (campo) => {
         if (campo === "telefone") {
-            return "dígitos";
+            return `${titulo(campo)} deve ter exatamente ${tamanhoMaximo} "dígitos".`;
         } else {
-            return "caracteres";
+            return `${titulo(campo)} deve ter no máximo ${tamanhoMaximo} caracteres.`;
         };
     };
-    return `${titulo(campo)} deve ter no máximo ${tamanhoMaximo} ${palavraComplementar(campo)}.`;
+    return mensagem(campo);
 };
 
 export function retornaMensagemDominio(){
@@ -62,6 +62,10 @@ export function retornaMensagemComplementoDominio(campo){
 
 export function retornaMensagemPontoExtraDominio(campo){
     return `Domínio do ${campo} contém pontos excedentes.`
+};
+
+export function retornaMensagemCampoObrigatorio(campo){
+    return `${titulo(campo)} é obrigatório.`;
 };
 
 

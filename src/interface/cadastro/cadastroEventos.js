@@ -40,11 +40,11 @@ function validaCamposFormulario() {
     bloquearBotao(elementoBotoes);
     elementoCadastro.formulario.addEventListener('input', (evento) => {
         const campoEdicao = evento.target;
+        const campos = validaCamposObrigatorio(elementoCadastro.formulario);
 
         if (campoEdicao.name) {
             ocultaErrosValidacao(campoEdicao.name, elementoAlerta)
         };
-        const campos = validaCamposObrigatorio(elementoCadastro.formulario);
         desbloquearBotao(!campos.dadosInvalidos, elementoBotoes);
         if (campos.dadosInvalidos) {
             exibirErrosValidacao(campos, elementoAlerta);
