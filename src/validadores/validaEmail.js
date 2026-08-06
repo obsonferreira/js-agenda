@@ -1,4 +1,4 @@
-import { retornaMensagemCaracterInvalido, retornaMensagemEspaco } from "../mensagens/mensagensValidacao.js";
+import { retornaMensagemCaracterInvalido, retornaMensagemEspaco, retornaMensagemTamanhoMaximo, retornaMensagemTamanhoMinimo } from "../mensagens/mensagensValidacao.js";
 import { retornaComposicaoEmail } from "./analisaTexto.js";
 
 export function validaEmail(input, campo) {
@@ -13,6 +13,42 @@ export function validaEmail(input, campo) {
             valor: input,
             erro: true,
             mensagem: retornaMensagemEspaco(campo)
+        };
+
+    } else if (validacao.tamanhoMinimo) {
+
+        resultado = {
+            campo: campo,
+            valor: input,
+            erro: true,
+            mensagem: retornaMensagemTamanhoMinimo(campo, 9)
+        };
+
+    } else if (validacao.tamanhoMaximo) {
+
+        resultado = {
+            campo: campo,
+            valor: input,
+            erro: true,
+            mensagem: retornaMensagemTamanhoMaximo(campo, 40)
+        };
+
+    } else if (validacao.caracteresInvalidosIdEmail) {
+
+        resultado = {
+            campo: campo,
+            valor: input,
+            erro: true,
+            mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosIdEmail)
+        };
+
+    } else if (validacao.caracteresInvalidosDominioEmail) {
+
+        resultado = {
+            campo: campo,
+            valor: input,
+            erro: true,
+            mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosDominioEmail)
         };
 
     } else if (validacao.nomeDominio) {
@@ -69,24 +105,6 @@ export function validaEmail(input, campo) {
             mensagem: `Email sem ".", verifique o email digitado!`
         };
 
-    } else if (validacao.caracteresInvalidosIdEmail) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosIdEmail)
-        };
-
-    } else if (validacao.caracteresInvalidosDominioEmail) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosDominioEmail)
-        };
-
     } else if (validacao.inicioInvalido) {
 
         resultado = {
@@ -131,7 +149,6 @@ export function validaEmail(input, campo) {
             mensagem: ""
         };
     };
-
     return resultado;
 };
 
@@ -141,6 +158,8 @@ function validaInputEmail(inputUser) {
 
     return {
         quantidadeEspaco: inputUser.quantidadeEspaco > 0,
+        tamanhoMinimo: inputUser.length < 9,
+        tamanhoMaximo: inputUser.quantidadeEspaco > 40,
         semArroba: inputUser.caracterValidoEmail.length === 0,
         arrobaExtra: inputUser.caracterValidoEmail.length > 1,
 

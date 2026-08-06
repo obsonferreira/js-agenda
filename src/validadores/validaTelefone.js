@@ -1,4 +1,4 @@
-import { retornaMensagemCaracterInvalido, retornaMensagemEspaco, retornaMensagemTamanhoMinimo } from '../mensagens/mensagensValidacao.js';
+import { retornaMensagemCaracterInvalido, retornaMensagemEspaco, retornaMensagemTamanhoMaximo, retornaMensagemTamanhoMinimo } from '../mensagens/mensagensValidacao.js';
 import { retornaComposicaoInput } from './analisaTexto.js';
 
 export function validaTelefone(input, campo) {
@@ -39,7 +39,7 @@ export function validaTelefone(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: "Telefone com muitos digitos, digite apenas 9 digitos!"
+            mensagem: retornaMensagemTamanhoMaximo(campo,9)
         };
 
     } else {
