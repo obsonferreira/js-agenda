@@ -1,10 +1,12 @@
 import { agendaRepositorio } from "../modelos/agenda.js";
 import { atualizarPessoa } from "../servicos/agendaService.js";
 import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
+import { validaId } from "../validadores/validaId.js";
 
 agendaRepositorio.contatos = carregarContatos();
 
 export function salvarContato(pessoa) {
+    gerarId()
     agendaRepositorio.adicionar(pessoa);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
@@ -86,4 +88,17 @@ export function buscaDuplicidade(contato) {
         };
     };
     return resultado;
+};
+
+function gerarId() {
+    const lista = agendaRepositorio.contatos;
+    const geraNumero = () => {
+        return Math.floor(Math.random() * 1000);
+    };
+    let id = geraNumero();
+    const idValido = validaId(id,lista);
+    console.log(idValido);
+    
+    console.log(id);
+    
 };

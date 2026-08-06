@@ -1,5 +1,3 @@
-import { geraId } from "../validadores/validaId.js";
-
 export class Agenda {
     constructor() {
 
@@ -8,7 +6,6 @@ export class Agenda {
 
     adicionar(contato) {
 
-        contato.id = geraId();
         this.contatos.push(contato);
     };
 
