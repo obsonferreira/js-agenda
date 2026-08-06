@@ -5,6 +5,7 @@ import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
 agendaRepositorio.contatos = carregarContatos();
 
 export function salvarContato(pessoa) {
+    pessoa.id = criarId();
     agendaRepositorio.adicionar(pessoa);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
@@ -86,4 +87,25 @@ export function buscaDuplicidade(contato) {
         };
     };
     return resultado;
+};
+
+function criarId() {
+    const lista = agendaRepositorio.contatos;
+    const gerarNumero = () => {
+        const min = 1
+        const max = 1000
+        return Math.floor(Math.random() * (max - min) + min);
+    };
+
+    const retornaIdValido = () => {
+        let idInvalido ;
+        do {
+            const id = gerarNumero();
+            idInvalido = lista.some(pessoa => pessoa.id === id);
+            if (!idInvalido) {
+                return id;
+            };
+        } while (idInvalido);
+    };
+    return retornaIdValido();
 };
