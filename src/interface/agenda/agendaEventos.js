@@ -47,14 +47,13 @@ function iniciarEdicao() {
             referencia: referencia
         };
         
-        if (dadosFormulario.validacao.dadosInvalidos) {
-            exibirErrosValidacao(dadosFormulario.validacao, elementoAlertaAgenda);
-
-        } else if (dadosFormulario.duplicidade.dadosInvalidos) {
-            exibirErrosValidacao(dadosFormulario.duplicidade, elementoAlertaAgenda);
+        if (validacao.dadosInvalidos) {
+            exibirErrosValidacao(validacao, elementoAlertaAgenda);
+        } else if (duplicidade.dadosInvalidos) {
+            exibirErrosValidacao(duplicidade, elementoAlertaAgenda);
         };
 
-        if (!dadosFormulario.validacao.dadosInvalidos && !dadosFormulario.duplicidade.dadosInvalidos) {
+        if (!validacao.dadosInvalidos && !duplicidade.dadosInvalidos) {
             editarFormulario(dadosFormulario);
             mensagemContatoAlterado();
         };
