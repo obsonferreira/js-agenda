@@ -158,8 +158,8 @@ function validaInputEmail(inputUser) {
 
     return {
         quantidadeEspaco: inputUser.quantidadeEspaco > 0,
-        tamanhoMinimo: inputUser.length < 9,
-        tamanhoMaximo: inputUser.quantidadeEspaco > 40,
+        tamanhoMinimo: inputUser.tamanhoInput < 9,
+        tamanhoMaximo: inputUser.tamanhoInput > 40,
         semArroba: inputUser.caracterValidoEmail.length === 0,
         arrobaExtra: inputUser.caracterValidoEmail.length > 1,
 

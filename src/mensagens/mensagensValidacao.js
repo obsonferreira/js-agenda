@@ -1,29 +1,37 @@
 export function retornaMensagemEspaco(campo) {
-    return `${campo} não pode ter espaço, verifique o ${campo} digitado!`;
+    const campoFormatado = campo.charAt(0).toUpperCase() + campo.slice(1);
+    return `${campoFormatado} não pode conter espaço.`;
 };
 
 export function retornaMensagemCaracterInvalido(campo, caracteres) {
-    return `${campo} contém: "${caracteres}", ${(caracteres.length === 1) ? "caractere inválido" : "caracteres inválidos"}, verifique o ${campo} digitado!`;
+    const campoFormatado = campo.charAt(0).toUpperCase() + campo.slice(1);
+    return `${campoFormatado} contém ${(caracteres.length === 1) ? "o caractere inválido" : "os caracteres inválidos"}: "${caracteres}".`;
 };
 
 export function retornaMensagemTamanhoMinimo(campo, tamanhoMinimo) {
-    let palavraComplementar;
-    if (campo === "telefone") {
-        palavraComplementar = "dígitos";
-    } else {
-        palavraComplementar = "caracteres";
+
+    const campoFormatado = campo.charAt(0).toUpperCase() + campo.slice(1);
+    const palavraComplementar = (campo) => {
+        if (campo === "telefone") {
+            return "dígitos";
+        } else {
+            return "caracteres";
+        };
     };
 
-    return `${campo} deve ter mínimo ${tamanhoMinimo} ${palavraComplementar}!`;
+    return `${campoFormatado} deve ter no mínimo ${tamanhoMinimo} ${palavraComplementar(campo)}.`;
 };
 
 export function retornaMensagemTamanhoMaximo(campo, tamanhoMaximo) {
-    let palavraComplementar;
-    if (campo === "telefone") {
-        palavraComplementar = "dígitos";
-    } else {
-        palavraComplementar = "caracteres";
+
+    const campoFormatado = campo.charAt(0).toUpperCase() + campo.slice(1);
+    const palavraComplementar = (campo) => {
+        if (campo === "telefone") {
+            return "dígitos";
+        } else {
+            return "caracteres";
+        };
     };
 
-    return `${campo} deve ter máximo ${tamanhoMaximo} ${palavraComplementar}!`;
+    return `${campoFormatado} deve ter no máximo ${tamanhoMaximo} ${palavraComplementar(campo)}.`;
 };
