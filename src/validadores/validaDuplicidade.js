@@ -1,5 +1,3 @@
-import { validacaoGeral } from "./compartilhado.js";
-
 export function validaDuplicidade(input, lista) {
 
     const resultadoBusca = {
