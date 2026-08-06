@@ -24,7 +24,7 @@ export function validaTelefone(input, campo) {
             mensagem: retornaMensagemCaracterInvalido(campo,validacao.caracteres)
         };
 
-    } else if (validacao.tamanhoMenor) {
+    } else if (validacao.tamanhoMinimo) {
 
         resultado = {
             campo: campo,
@@ -33,7 +33,7 @@ export function validaTelefone(input, campo) {
             mensagem: retornaMensagemTamanhoMinimo(campo,9)
         };
 
-    } else if (validacao.tamanhoMaior) {
+    } else if (validacao.tamanhoMaximo) {
 
         resultado = {
             campo: campo,
@@ -58,8 +58,8 @@ function validaInputFone(composicao) {
 
     return {
         quantidadeEspaco: composicao.quantidadeEspaco > 0,
-        tamanhoMenor: composicao.numero.length < 9,
-        tamanhoMaior: composicao.numero.length > 9,
+        tamanhoMinimo: composicao.numero.length < 9,
+        tamanhoMaximo: composicao.numero.length > 9,
         caracteresInvalidos: composicao.caracteresEspecial.length > 0 || composicao.letras.length > 0 ,
         caracteres: composicao.letras + composicao.caracteresEspecial
     };
