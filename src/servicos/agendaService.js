@@ -1,6 +1,3 @@
-// aqui vou criar pessoa, validar pessoa, casdastrar contato
-// editar contato e excluir contato
-
 import { Contato } from "../modelos/contato.js";
 import { Pessoa } from "../modelos/pessoa.js";
 
