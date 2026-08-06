@@ -152,28 +152,28 @@ export function validaEmail(input, campo) {
     return resultado;
 };
 
-function validaInputEmail(inputUser) {
+function validaInputEmail(componentes) {
 
     const caracteresEspecial = /^[\W_]$/;
 
     return {
-        quantidadeEspaco: inputUser.quantidadeEspaco > 0,
-        tamanhoMinimo: inputUser.tamanhoInput < 9,
-        tamanhoMaximo: inputUser.tamanhoInput > 40,
-        semArroba: inputUser.caracterValidoEmail.length === 0,
-        arrobaExtra: inputUser.caracterValidoEmail.length > 1,
+        quantidadeEspaco: componentes.quantidadeEspaco > 0,
+        tamanhoMinimo: componentes.tamanhoInput < 9,
+        tamanhoMaximo: componentes.tamanhoInput > 40,
+        semArroba: componentes.caracterValidoEmail.length === 0,
+        arrobaExtra: componentes.caracterValidoEmail.length > 1,
 
-        caracteresInvalidosIdEmail: inputUser.caracteresInvalidosIdEmail.length > 0,
-        caracterConsecutivosIdEmail: inputUser.caracterConsecutivosIdEmail.length > 0,
-        nomeDominio: inputUser.nomeDominio.length <= 1,
-        complementoDominio: inputUser.complementoDominio.length <= 1,
+        caracteresInvalidosIdEmail: componentes.caracteresInvalidosIdEmail.length > 0,
+        caracterConsecutivosIdEmail: componentes.caracterConsecutivosIdEmail.length > 0,
+        nomeDominio: componentes.nomeDominio.length <= 1,
+        complementoDominio: componentes.complementoDominio.length <= 1,
 
-        inicioInvalido: caracteresEspecial.test(inputUser.primeiroDigitoEmail),
-        finalInvalido: caracteresEspecial.test(inputUser.ultimoDigitoEmail),
+        inicioInvalido: caracteresEspecial.test(componentes.primeiroDigitoEmail),
+        finalInvalido: caracteresEspecial.test(componentes.ultimoDigitoEmail),
 
-        caracterConsecutivosDominioEmail: inputUser.caracterConsecutivosDominioEmail.length > 0,
-        caracteresInvalidosDominioEmail: inputUser.caracteresInvalidosDominioEmail.length > 0,
-        pontoExtraDominio: inputUser.caracterValidosDominioEmail.length > 2,
-        semPontoDominio: inputUser.caracterValidosDominioEmail.length === 0
+        caracterConsecutivosDominioEmail: componentes.caracterConsecutivosDominioEmail.length > 0,
+        caracteresInvalidosDominioEmail: componentes.caracteresInvalidosDominioEmail.length > 0,
+        pontoExtraDominio: componentes.caracterValidosDominioEmail.length > 2,
+        semPontoDominio: componentes.caracterValidosDominioEmail.length === 0
     };
 };
