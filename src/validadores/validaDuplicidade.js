@@ -1,3 +1,5 @@
+import { retornaMensagemContatoExistente } from "../mensagens/mensagensValidacao.js";
+
 export function validaDuplicidade(input, lista) {
 
     const resultadoBusca = {
@@ -8,15 +10,13 @@ export function validaDuplicidade(input, lista) {
         return {
             campo: input.campo,
             valor: input.valor,
-            id: lista.find(usuario => usuario.contato[input.campo] === input.valor).id,
             erro: resultadoBusca.dado,
-            mensagem: `${input.campo} já cadastrado.`
+            mensagem: retornaMensagemContatoExistente(input.campo)
         };
     } else {
         return {
             campo: input.campo,
             valor: input.valor,
-            id: '',
             erro: resultadoBusca.dado,
             mensagem: ""
         };

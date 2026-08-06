@@ -20,7 +20,7 @@ export function retornaMensagemTamanhoMinimo(campo, tamanhoMinimo) {
 export function retornaMensagemTamanhoMaximo(campo, tamanhoMaximo) {
     const mensagem = (campo) => {
         if (campo === "telefone") {
-            return `${titulo(campo)} deve ter exatamente ${tamanhoMaximo} "dígitos".`;
+            return `${titulo(campo)} deve ter exatamente ${tamanhoMaximo} dígitos.`;
         } else {
             return `${titulo(campo)} deve ter no máximo ${tamanhoMaximo} caracteres.`;
         };
@@ -68,8 +68,9 @@ export function retornaMensagemCampoObrigatorio(campo){
     return `${titulo(campo)} é obrigatório.`;
 };
 
-
-
+export function retornaMensagemContatoExistente(campo){
+    return `${titulo(campo)} já cadastrado.`;
+};
 
 function titulo(campo) {
     return campo.charAt(0).toUpperCase() + campo.slice(1);

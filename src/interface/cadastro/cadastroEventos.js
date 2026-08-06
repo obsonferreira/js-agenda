@@ -7,7 +7,6 @@ function iniciarCadastro() {
         bloquearBotao(elementoBotoes);
         event.preventDefault();
         const pessoa = processaFormulario(elementoCadastro);
-
         const validacao = validaFormulario(pessoa);
         const duplicidade = validaDuplicidadeFormulario(validacao);
         const dadosFormulario = {
