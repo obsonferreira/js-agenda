@@ -55,14 +55,14 @@ export function validaNome(input, campo) {
     return resultado;
 };
 
-function validaInputNome(composicao) {
+function validaInputNome(componentes) {
 
     return {
-        quantidadeEspaco: composicao.quantidadeEspaco > 0,
-        tamanhoMinimo: composicao.letras.length < 3,
-        tamanhoMaximo: composicao.letras.length > 20,
-        caracteresInvalidos: (composicao.caracteresEspecial.length > 0 || composicao.numero.length > 0),
-        caracteres: composicao.numero + composicao.caracteresEspecial
+        quantidadeEspaco: componentes.quantidadeEspaco > 0,
+        tamanhoMinimo: componentes.letras.length < 3,
+        tamanhoMaximo: componentes.letras.length > 20,
+        caracteresInvalidos: (componentes.caracteresEspecial.length > 0 || componentes.numero.length > 0),
+        caracteres: componentes.numero + componentes.caracteresEspecial
     };
 };
 
