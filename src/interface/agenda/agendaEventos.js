@@ -79,16 +79,15 @@ function validaCamposFormulario() {
 
     elementoFormularioAgenda.formulario.addEventListener('input', (evento) => {
         const campoEdicao = evento.target;
+        const campos = validaCamposObrigatorio(elementoFormularioAgenda.formulario);
 
         if (campoEdicao.name) {
             ocultaErrosValidacao(campoEdicao.name, elementoAlertaAgenda)
         };
-        const campos = validaCamposObrigatorio(elementoFormularioAgenda.formulario);
-        desbloquearBotao(!campos.dadosInvalidos, elementoFormularioAgenda);
         if (campos.dadosInvalidos) {
             exibirErrosValidacao(campos, elementoAlertaAgenda);
         };
-
+        desbloquearBotao(!campos.dadosInvalidos, elementoFormularioAgenda);
     });
 };
 
