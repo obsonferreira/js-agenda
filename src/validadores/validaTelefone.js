@@ -3,8 +3,8 @@ import { retornaComposicaoInput } from './analisaTexto.js';
 
 export function validaTelefone(input, campo) {
     let resultado = {};
-    const composicao = retornaComposicaoInput(input);
-    const validacao = validaInputFone(composicao);
+    const componentes = retornaComposicaoInput(input);
+    const validacao = validaInputFone componentes);
 
     if (validacao.quantidadeEspaco) {
 
@@ -54,13 +54,13 @@ export function validaTelefone(input, campo) {
     return resultado;
 };
 
-function validaInputFone(composicao) {
+function validaInputFone (componentes) {
 
     return {
-        quantidadeEspaco: composicao.quantidadeEspaco > 0,
-        tamanhoMinimo: composicao.numero.length < 9,
-        tamanhoMaximo: composicao.numero.length > 9,
-        caracteresInvalidos: composicao.caracteresEspecial.length > 0 || composicao.letras.length > 0 ,
-        caracteres: composicao.letras + composicao.caracteresEspecial
+        quantidadeEspaco: componentes.quantidadeEspaco > 0,
+        tamanhoMinimo: componentes.numero.length < 9,
+        tamanhoMaximo: componentes.numero.length > 9,
+        caracteresInvalidos: componentes.caracteresEspecial.length > 0 || componentes.letras.length > 0 ,
+        caracteres: componentes.letras + componentes.caracteresEspecial
     };
 };
