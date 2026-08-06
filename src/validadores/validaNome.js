@@ -1,4 +1,4 @@
-import { retornaMensagemEspaco, retornaMensagemTamanhoMinimo } from '../mensagens/mensagensValidacao.js';
+import { retornaMensagemEspaco, retornaMensagemTamanhoMinimo, retornaMensagemCaracterInvalido } from '../mensagens/mensagensValidacao.js';
 import { retornaComposicaoInput } from './analisaTexto.js';
 
 export function validaNome(input, campo) {

@@ -75,7 +75,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: retornaMensagemCaracterInvalido(campo,componentes.caracterConsecutivosIdEmail)
+            mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosIdEmail)
         };
 
     } else if (validacao.caracteresInvalidosDominioEmail) {

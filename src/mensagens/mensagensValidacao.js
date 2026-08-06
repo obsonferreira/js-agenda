@@ -3,9 +3,16 @@ export function retornaMensagemEspaco(campo) {
 };
 
 export function retornaMensagemCaracterInvalido(campo, caracteres) {
-    return `${campo} contem: "${caracteres}", ${(caracteres.length === 1) ? "digito invalido" : "digitos invalidos"}, verifique o ${campo} digitado!`;
+    return `${campo} contém: "${caracteres}", ${(caracteres.length === 1) ? "caractere inválido" : "caracteres inválidos"}, verifique o ${campo} digitado!`;
 };
 
 export function retornaMensagemTamanhoMinimo(campo, tamanhoMinimo) {
-    return `${campo} pequeno, ${campo} deve ter minimo ${tamanhoMinimo} digitos, verifique o ${campo} digitado!`;
+    let palavraComplementar;
+    if (campo === "telefone") {
+        palavraComplementar = "dígitos";
+    } else {
+        palavraComplementar = "caracteres";
+    };
+
+    return `${campo} deve ter mínimo ${tamanhoMinimo} ${palavraComplementar}!`;
 };
