@@ -19,11 +19,11 @@ function iniciarAgenda() {
     document.addEventListener("DOMContentLoaded", () => {
         let quantidadeContatos = lista.length;
 
-        elementoVisorAgenda.contador.textContent = `${quantidadeContatos > 0 ? "Contatos" : "Contato"} salvo: ${quantidadeContatos}`;
+        elementoVisorAgenda.contador.textContent = `${quantidadeContatos ===1 ? "Contato salvo" : "Contatos salvos"}: ${quantidadeContatos}`;
 
         if (quantidadeContatos === 0) {
             exibirAtributo(elementoAlertaAgenda.contato);
-            exibirMensagem(elementoAlertaAgenda.contato, "Agenda vazia!");
+            exibirMensagem(elementoAlertaAgenda.contato, "Nenhum contato cadastrado.");
         } else {
             ocultarAtributo(elementoAlertaAgenda.contato);
             const tabela = criarTabelaContato(lista);
@@ -46,7 +46,7 @@ function iniciarEdicao() {
             duplicidade: duplicidade,
             referencia: referencia
         };
-        
+
         if (validacao.dadosInvalidos) {
             exibirErrosValidacao(validacao, elementoAlertaAgenda);
         } else if (duplicidade.dadosInvalidos) {

@@ -4,7 +4,7 @@ import { ocultarAtributo, exibirMensagem, exibirAtributo } from "./notificacoes.
 
 export function modalContatoSalvo() {
     elementoDialogo.modalCadastro.showModal();
-    exibirMensagem(elementoDialogo.contatoSalvo, 'Contato criado com sucesso!');
+    exibirMensagem(elementoDialogo.contatoSalvo, 'Contato cadastrado com sucesso.');
 };
 
 export function mensagemContatoAlterado() {
