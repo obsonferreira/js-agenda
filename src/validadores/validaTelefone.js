@@ -4,7 +4,7 @@ import { retornaComposicaoInput } from './analisaTexto.js';
 export function validaTelefone(input, campo) {
     let resultado = {};
     const componentes = retornaComposicaoInput(input);
-    const validacao = validaInputFone componentes);
+    const validacao = validaInputFone (componentes);
 
     if (validacao.quantidadeEspaco) {
 

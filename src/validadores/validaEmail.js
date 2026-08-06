@@ -1,4 +1,4 @@
-import { retornaMensagemCaracterInvalido, retornaMensagemEspaco, retornaMensagemTamanhoMaximo, retornaMensagemTamanhoMinimo } from "../mensagens/mensagensValidacao.js";
+import { retornaMensagemArrobaExtra, retornaMensagemCaracterConsecutivos, retornaMensagemCaracterInvalido, retornaMensagemComplementoDominio, retornaMensagemDominio, retornaMensagemEspaco, retornaMensagemFinalInvalido, retornaMensagemInicioInvalido, retornaMensagemPontoExtraDominio, retornaMensagemSemArroba, retornaMensagemSemPonto, retornaMensagemTamanhoMaximo, retornaMensagemTamanhoMinimo } from "../mensagens/mensagensValidacao.js";
 import { retornaComposicaoEmail } from "./analisaTexto.js";
 
 export function validaEmail(input, campo) {
@@ -33,6 +33,24 @@ export function validaEmail(input, campo) {
             mensagem: retornaMensagemTamanhoMaximo(campo, 40)
         };
 
+    } else if (validacao.semArroba) {
+
+        resultado = {
+            campo: campo,
+            valor: input,
+            erro: true,
+            mensagem: retornaMensagemSemArroba(campo)
+        };
+
+    } else if (validacao.arrobaExtra) {
+
+        resultado = {
+            campo: campo,
+            valor: input,
+            erro: true,
+            mensagem: retornaMensagemArrobaExtra(campo)
+        };
+
     } else if (validacao.caracteresInvalidosIdEmail) {
 
         resultado = {
@@ -51,13 +69,22 @@ export function validaEmail(input, campo) {
             mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosDominioEmail)
         };
 
+    } else if (validacao.semPontoDominio) {
+
+        resultado = {
+            campo: campo,
+            valor: input,
+            erro: true,
+            mensagem: retornaMensagemSemPonto(campo)
+        };
+
     } else if (validacao.nomeDominio) {
 
         resultado = {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `O email falta nome do domínio ou faltando dígitos, verifique o email digitado!`
+            mensagem: retornaMensagemDominio()
         };
 
     } else if (validacao.complementoDominio) {
@@ -66,25 +93,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `O email faltando ".com" ou similar, verifique o email digitado!`
-        };
-
-    } else if (validacao.arrobaExtra) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: `Email com "@" excedente, verifique o email digitado!`
-        };
-
-    } else if (validacao.semArroba) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: `Email sem "@", verifique o email digitado!`
+            mensagem: retornaMensagemComplementoDominio(campo)
         };
 
     } else if (validacao.pontoExtraDominio) {
@@ -93,16 +102,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `Email com "." excedente, verifique o email digitado!`
-        };
-
-    } else if (validacao.semPontoDominio) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: `Email sem ".", verifique o email digitado!`
+            mensagem: retornaMensagemPontoExtraDominio(campo)
         };
 
     } else if (validacao.inicioInvalido) {
@@ -111,7 +111,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `O email não pode iniciar com: "${componentes.primeiroDigitoEmail}", verifique o email digitado!`
+            mensagem: retornaMensagemInicioInvalido(campo, componentes.primeiroDigitoEmail)
         };
 
     } else if (validacao.finalInvalido) {
@@ -120,7 +120,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `O email não pode terminar com: "${componentes.ultimoDigitoEmail}", verifique o email digitado!`
+            mensagem: retornaMensagemFinalInvalido(campo, componentes.ultimoDigitoEmail)
         };
 
     } else if (validacao.caracterConsecutivosDominioEmail) {
@@ -129,7 +129,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `O email não pode ter apos o "@", "${componentes.caracterConsecutivosDominioEmail}" consecutivos, verifique o email digitado!`
+            mensagem: retornaMensagemCaracterConsecutivos(campo, componentes.caracterConsecutivosDominioEmail)
         };
 
     } else if (validacao.caracterConsecutivosIdEmail) {
@@ -138,7 +138,7 @@ export function validaEmail(input, campo) {
             campo: campo,
             valor: input,
             erro: true,
-            mensagem: `O email não pode ter: "${componentes.caracterConsecutivosIdEmail}" consecutivos, verifique o email digitado!`
+            mensagem: retornaMensagemCaracterConsecutivos(campo, componentes.caracterConsecutivosIdEmail)
         };
 
     } else {
@@ -155,7 +155,6 @@ export function validaEmail(input, campo) {
 function validaInputEmail(componentes) {
 
     const caracteresEspecial = /^[\W_]$/;
-
     return {
         quantidadeEspaco: componentes.quantidadeEspaco > 0,
         tamanhoMinimo: componentes.tamanhoInput < 9,
