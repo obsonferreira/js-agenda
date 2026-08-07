@@ -19,7 +19,7 @@ function iniciarAgenda() {
     document.addEventListener("DOMContentLoaded", () => {
         let quantidadeContatos = lista.length;
 
-        elementoVisorAgenda.contador.textContent = `${quantidadeContatos ===1 ? "Contato salvo" : "Contatos salvos"}: ${quantidadeContatos}`;
+        elementoVisorAgenda.contador.textContent = `${quantidadeContatos <=1 ? "Contato salvo" : "Contatos salvos"}: ${quantidadeContatos}`;
 
         if (quantidadeContatos === 0) {
             exibirAtributo(elementoAlertaAgenda.contato);

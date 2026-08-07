@@ -6,7 +6,7 @@ import { validaId } from "../validadores/validaId.js";
 agendaRepositorio.contatos = carregarContatos();
 
 export function salvarContato(pessoa) {
-    gerarId()
+    pessoa.id = criarId();
     agendaRepositorio.adicionar(pessoa);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
@@ -90,15 +90,23 @@ export function buscaDuplicidade(contato) {
     return resultado;
 };
 
-function gerarId() {
+function criarId() {
     const lista = agendaRepositorio.contatos;
-    const geraNumero = () => {
-        return Math.floor(Math.random() * 1000);
+    const gerarNumero = () => {
+        const min = 1
+        const max = 1000
+        return Math.floor(Math.random() * (max - min) + min);
     };
-    let id = geraNumero();
-    const idValido = validaId(id,lista);
-    console.log(idValido);
-    
-    console.log(id);
-    
+
+    const retornaIdValido = () => {
+        let idInvalido ;
+        do {
+            const id = gerarNumero();
+            idInvalido = lista.some(pessoa => pessoa.id === id);
+            if (!idInvalido) {
+                return id;
+            };
+        } while (idInvalido);
+    };
+    return retornaIdValido();
 };
