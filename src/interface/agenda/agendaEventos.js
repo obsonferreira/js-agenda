@@ -97,32 +97,40 @@ function sairEdicaoFeita() {
     });
 };
 
-function cancelarAlteracao() {
-    elementoDialogoEdicao.botaoSair.addEventListener("click", () => {
-        elementoDialogoEdicao.modalEdicao.close();
+function sairExclusaoFeita() {
+    elementoDialogoAlertasAgenda.botaoSairExclusao.addEventListener("click", () => {
+        location.reload();
+    });
+};
+
+function confirmarExclusao() {
+    elementoDialogoAlertasAgenda.botaoSim.addEventListener("click", () => {
+        ocultarAtributo(elementoDialogoAlertasAgenda.selecaoExclusao);
+        deletarContato(referencia);
+        exibirAtributo(elementoDialogoAlertasAgenda.mensagemExclusao);
+    });
+};
+
+function cancelarExclusao() {
+    elementoDialogoAlertasAgenda.botaoNao.addEventListener("click", () => {
+        ocultarAtributo(elementoDialogoAlertasAgenda.mensagemExclusao);
+        elementoDialogoEdicao.modalEdicao.showModal();
+        elementoDialogoAlertasAgenda.modalAlertas.close();
     });
 };
 
 function excluirContatoAgenda() {
 
     elementoDialogoEdicao.botaoExcluir.addEventListener("click", () => {
-        exibirAtributo(elementoDialogoAlertasAgenda.mensagemExclusao);
+        exibirAtributo(elementoDialogoAlertasAgenda.selecaoExclusao);
         elementoDialogoEdicao.modalEdicao.close();
         elementoDialogoAlertasAgenda.modalAlertas.showModal();
     });
 };
 
-function confirmarExclusao() {
-    elementoDialogoAlertasAgenda.botaoSim.addEventListener("click", () => {
-        deletarContato(referencia);
-        // location.reload();
-    });
-};
-
-function cancelarExclusao() {
-    elementoDialogoAlertasAgenda.botaoNao.addEventListener("click", () => {
-        elementoDialogoEdicao.modalEdicao.showModal();
-        elementoDialogoAlertasAgenda.modalAlertas.close();
+function cancelarAlteracao() {
+    elementoDialogoEdicao.botaoSair.addEventListener("click", () => {
+        elementoDialogoEdicao.modalEdicao.close();
     });
 };
 
@@ -148,6 +156,7 @@ export function mainAgenda() {
 
     excluirContatoAgenda();
     confirmarExclusao();
+    sairExclusaoFeita();
     cancelarExclusao();
 
     buscarContato();

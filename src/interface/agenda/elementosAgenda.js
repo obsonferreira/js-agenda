@@ -24,8 +24,10 @@ export const elementoDialogoAlertasAgenda = {
     botaoSim: document.getElementById("btn-sim"),
     botaoNao: document.getElementById("btn-nao"),
     botaoSairAlteracao: document.getElementById("btn-sair-alteracao"),
-    mensagemAlteracao: document.getElementById("container-alteracao"),
-    mensagemExclusao: document.getElementById("container-exclusao")
+    botaoSairExclusao: document.getElementById("btn-sair-exclusao"),
+    mensagemAlteracao: document.getElementById("container-mensagem-alteracao"),
+    mensagemExclusao: document.getElementById("container-mensagem-exclusao"),
+    selecaoExclusao: document.getElementById("container-selecao-exclusao")
 };
 
 export const elementoVisorAgenda = {
