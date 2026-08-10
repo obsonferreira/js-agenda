@@ -1,12 +1,8 @@
-import { buscaContato, retornaId } from "../../repositorio/agendaRepositorio.js";
+import { buscaContato } from "../../repositorio/agendaRepositorio.js";
 import { elementoDialogoEdicao } from "./elementosAgenda.js";
 
-export function preencheFormulario(formulario, dadosBusca) {
-    const id = retornaId(dadosBusca)
-    console.log(id);
-    
+export function preencheFormulario(formulario, id) {
     const dados = buscaContato(id);
-    console.log(dados);
     
     for (const chave in dados) {
         if (formulario.elements[chave]) {
@@ -23,7 +19,6 @@ export function preencheFormulario(formulario, dadosBusca) {
     };
 
     elementoDialogoEdicao.modalEdicao.showModal();
-    return id
 };
 
 function criarCelula(texto) {
@@ -36,6 +31,7 @@ export function criarTabelaContato(lista) {
     const corpo = document.createElement("tbody");
     lista.forEach((pessoa) => {
         const valorLinha = document.createElement("tr");
+        valorLinha.dataset.id = pessoa.id;
         valorLinha.classList.add(lista.indexOf(pessoa) + 1);
 
         valorLinha.appendChild(criarCelula(lista.indexOf(pessoa) + 1));
@@ -47,7 +43,7 @@ export function criarTabelaContato(lista) {
             valorLinha.appendChild(criarCelula(contatos.email));
         });
 
-        valorLinha.appendChild(criarBotaoEditar(pessoa.id));
+        valorLinha.appendChild(criarBotaoEditar());
         corpo.appendChild(valorLinha);
     });
     return corpo;
@@ -74,13 +70,12 @@ export function retornaDadosTabela(elemento) {
     };
 };
 
-export function criarBotaoEditar(pessoa) {
+function criarBotaoEditar() {
 
     const td = document.createElement('td');
     const botao = document.createElement("button");
     botao.classList.add("btn-editar");
     botao.textContent = "Editar";
-    botao.dataset.pessoa = pessoa;
     td.appendChild(botao);
     return td;
 };

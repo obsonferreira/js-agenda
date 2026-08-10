@@ -63,16 +63,14 @@ function editarContatoAgenda() {
     elementoTabelaAgenda.tabela.addEventListener("click", (event) => {
         event.preventDefault();
         const click = event.target;
-
         if (click.tagName === 'BUTTON') {
             const linhaTabela = click.closest('tr');
             const dadosTabela = retornaDadosTabela(linhaTabela);
-            console.log(dadosTabela);
-            
+            const id = Number(linhaTabela.dataset.id);
             dadosEdicao = dadosTabela;
-            referencia = preencheFormulario(elementoFormularioAgenda.formulario, dadosTabela);
+            referencia = id;
+            preencheFormulario(elementoFormularioAgenda.formulario, referencia);
         };
-
     });
 };
 

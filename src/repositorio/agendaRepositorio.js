@@ -18,19 +18,15 @@ export function editarContato(dados, parametro) {
 };
 
 export function deletarContato(referencia) {
-    console.log(referencia);
-
     agendaRepositorio.excluir(referencia);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
 
 export function buscaContato(input) {
-
     return agendaRepositorio.buscar(input);
 };
 
 export function carregarContatos() {
-
     const dadosSalvo = localStorage.getItem('contatos');
     let arrayRecuperado;
     if (dadosSalvo == null) {
@@ -44,20 +40,17 @@ export function carregarContatos() {
 };
 
 export function retornaLista() {
-
     return agendaRepositorio.listar();
 };
 
 export function retornaId(input) {
     const lista = agendaRepositorio.listar();
-
     const verificacao = {
         telefone: lista.some(usuario => usuario.contato.telefone === input.contato.telefone),
-        email: lista.some(usuario => usuario.contato.email === input.contato.email),
-
+        email: lista.some(usuario => usuario.contato.email === input.contato.email)
     };
     const id = (verificacao) => {
-        const resultado = []
+        const resultado = [];
         if (verificacao.telefone) {
 
             resultado.push(lista.find(usuario => usuario.contato.telefone === input.contato.telefone).id);
@@ -65,16 +58,9 @@ export function retornaId(input) {
         if (verificacao.email) {
 
             resultado.push(lista.find(usuario => usuario.contato.email === input.contato.email).id);
-        };
-        console.log(resultado);
-        
+        };  
         return parseInt([...new Set(resultado)]);
     };
-
-    // const idLista = new Set(Object.values(dadosId));
-    // const id = idLista.values();
-    // id.next().value;
-
     return id(verificacao);
 };
 
