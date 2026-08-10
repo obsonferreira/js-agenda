@@ -1,3 +1,4 @@
+import { contratoValidacoesComErro, contratoValidacoesSemErro } from '../contratos/validacoes.js';
 import { retornaMensagemCaracterInvalido, retornaMensagemEspaco, retornaMensagemTamanhoMaximo, retornaMensagemTamanhoMinimo } from '../mensagens/mensagensValidacao.js';
 import { retornaComposicaoInput } from './analisaTexto.js';
 
@@ -7,50 +8,16 @@ export function validaTelefone(input, campo) {
     const validacao = validaInputFone (componentes);
 
     if (validacao.quantidadeEspaco) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemEspaco(campo)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input,retornaMensagemEspaco(campo));
     } else if (validacao.caracteresInvalidos) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemCaracterInvalido(campo,validacao.caracteres)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input,retornaMensagemCaracterInvalido(campo,validacao.caracteres));
     } else if (validacao.tamanhoMinimo) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemTamanhoMinimo(campo,9)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input,retornaMensagemTamanhoMinimo(campo,9));
     } else if (validacao.tamanhoMaximo) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemTamanhoMaximo(campo,9)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input,retornaMensagemTamanhoMaximo(campo,9));
     } else {
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: false,
-            mensagem: ""
-        };
+        resultado = contratoValidacoesSemErro(campo, input);
     };
-
     return resultado;
 };
 
