@@ -1,8 +1,13 @@
-import { buscaContato } from "../../repositorio/agendaRepositorio.js";
-import { elementoDialogoEdicao, elementoTabelaAgenda } from "./elementosAgenda.js";
+import { buscaContato, retornaId } from "../../repositorio/agendaRepositorio.js";
+import { elementoDialogoEdicao } from "./elementosAgenda.js";
 
 export function preencheFormulario(formulario, dadosBusca) {
-    const dados = buscaContato(dadosBusca);
+    const id = retornaId(dadosBusca)
+    console.log(id);
+    
+    const dados = buscaContato(id);
+    console.log(dados);
+    
     for (const chave in dados) {
         if (formulario.elements[chave]) {
             formulario.elements[chave].value = dados[chave];
@@ -18,7 +23,7 @@ export function preencheFormulario(formulario, dadosBusca) {
     };
 
     elementoDialogoEdicao.modalEdicao.showModal();
-    return dados.id
+    return id
 };
 
 function criarCelula(texto) {

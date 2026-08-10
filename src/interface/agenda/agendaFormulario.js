@@ -1,5 +1,4 @@
 import { editarContato } from "../../repositorio/agendaRepositorio.js";
-import { validacaoGeral } from "../../validadores/compartilhado.js";
 
 export function editarFormulario(dados) {
     editarContato(dados.pessoa, dados.referencia);

@@ -1,7 +1,6 @@
 import { agendaRepositorio } from "../modelos/agenda.js";
 import { atualizarPessoa } from "../servicos/agendaService.js";
 import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
-import { validaId } from "../validadores/validaId.js";
 
 agendaRepositorio.contatos = carregarContatos();
 
@@ -19,15 +18,15 @@ export function editarContato(dados, parametro) {
 };
 
 export function deletarContato(referencia) {
+    console.log(referencia);
 
     agendaRepositorio.excluir(referencia);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
 };
 
 export function buscaContato(input) {
-    let idContato = retornaId(input);
 
-    return agendaRepositorio.buscar(idContato);
+    return agendaRepositorio.buscar(input);
 };
 
 export function carregarContatos() {
@@ -49,18 +48,34 @@ export function retornaLista() {
     return agendaRepositorio.listar();
 };
 
-function retornaId(input) {
+export function retornaId(input) {
     const lista = agendaRepositorio.listar();
 
-    const dadosId = {
-        telefone: lista.find(usuario => usuario.contato.telefone === input.contato.telefone).id,
-        email: lista.find(usuario => usuario.contato.email === input.contato.email).id
+    const verificacao = {
+        telefone: lista.some(usuario => usuario.contato.telefone === input.contato.telefone),
+        email: lista.some(usuario => usuario.contato.email === input.contato.email),
+
+    };
+    const id = (verificacao) => {
+        const resultado = []
+        if (verificacao.telefone) {
+
+            resultado.push(lista.find(usuario => usuario.contato.telefone === input.contato.telefone).id);
+        };
+        if (verificacao.email) {
+
+            resultado.push(lista.find(usuario => usuario.contato.email === input.contato.email).id);
+        };
+        console.log(resultado);
+        
+        return parseInt([...new Set(resultado)]);
     };
 
-    const idLista = new Set(Object.values(dadosId));
-    const id = idLista.values();
+    // const idLista = new Set(Object.values(dadosId));
+    // const id = idLista.values();
+    // id.next().value;
 
-    return id.next().value;
+    return id(verificacao);
 };
 
 export function buscaDuplicidade(contato) {
@@ -99,7 +114,7 @@ function criarId() {
     };
 
     const retornaIdValido = () => {
-        let idInvalido ;
+        let idInvalido;
         do {
             const id = gerarNumero();
             idInvalido = lista.some(pessoa => pessoa.id === id);
