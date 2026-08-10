@@ -1,3 +1,4 @@
+import { contratoValidacoesSemErro } from "../contratos/validacoes.js";
 import { agendaRepositorio } from "../modelos/agenda.js";
 import { atualizarPessoa } from "../servicos/agendaService.js";
 import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
@@ -69,24 +70,13 @@ export function buscaDuplicidade(contato) {
     if (!contato.email.erro) {
         resultado.email = validaDuplicidade(contato.email, retornaLista());
     } else {
-        resultado.email = {
-            campo: contato.email.campo,
-            valor: contato.email.valor,
-            erro: false,
-            mensagem: ""
-        };
+        resultado.email = contratoValidacoesSemErro(contato.email.campo,contato.email.valor);
     };
 
     if (!contato.telefone.erro) {
         resultado.telefone = validaDuplicidade(contato.telefone, retornaLista());
     } else {
-        resultado.telefone = {
-            campo: contato.telefone.campo,
-            valor: contato.telefone.valor,
-            erro: false,
-            mensagem: ""
-
-        };
+        resultado.telefone = contratoValidacoesSemErro(contato.telefone.campo,contato.telefone.valor);
     };
     return resultado;
 };

@@ -1,14 +1,11 @@
+import { contratoValidacoesSemErro } from "../contratos/validacoes.js";
 import { validacaoGeral } from "./compartilhado.js";
 
 export function validaPessoa(pessoa) {
 
     const sobrenome = (pessoa) => {
         if (pessoa.sobrenome.length <= 0) {
-            return {
-                campo:"sobrenome",
-                valor:"",
-                erro: false,
-                mensagem : ''};
+            return contratoValidacoesSemErro('sobrenome',"");
         } else {
             return pessoa.validarSobrenome();
         };

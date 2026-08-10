@@ -1,3 +1,4 @@
+import { contratoValidacoesComErro, contratoValidacoesSemErro } from "../../contratos/validacoes.js";
 import { editarContato } from "../../repositorio/agendaRepositorio.js";
 
 export function editarFormulario(dados) {
@@ -10,9 +11,9 @@ export function verificaEdicao(dados, referencia) {
     for (const chave in dados.contato) {
 
         if (dados.contato[chave] !== referencia.contato[chave]) {
-            resultado[chave] = { campo: chave, valor: dados.contato[chave], erro: false, mensagem: "" };
+            resultado[chave] = contratoValidacoesSemErro(chave, dados.contato[chave]);
         } else {
-            resultado[chave] = { campo: chave, valor: dados.contato[chave], erro: true, mensagem: "" };
+            resultado[chave] = contratoValidacoesComErro(chave,dados.contato[chave],"");
         };
     };
 

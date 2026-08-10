@@ -1,3 +1,4 @@
+import { contratoValidacoesComErro, contratoValidacoesSemErro } from "../contratos/validacoes.js";
 import { retornaMensagemCampoObrigatorio, retornaMensagemTamanhoMaximo } from "../mensagens/mensagensValidacao.js";
 import { retornaComposicaoInput } from "./analisaTexto.js";
 
@@ -14,26 +15,10 @@ export function validaEntrada(dados) {
     };
 
     if (componentes.quantidadeEspaco === componentes.tamanhoInput) {
-        return {
-            campo: dados.campo,
-            valor: dados.valor,
-            erro: true,
-            mensagem: retornaMensagemCampoObrigatorio(dados.campo)
-        };
-
+        return contratoValidacoesComErro(dados.campo, dados.valor, retornaMensagemCampoObrigatorio(dados.campo));
     } else if (componentes.tamanhoInput > tamanhoMaximo(dados)) {
-        return {
-            campo: dados.campo,
-            valor: dados.valor,
-            erro: true,
-            mensagem: retornaMensagemTamanhoMaximo(dados.campo, tamanhoMaximo(dados))
-        };
+        return contratoValidacoesComErro(dados.campo, dados.valor, retornaMensagemTamanhoMaximo(dados.campo, tamanhoMaximo(dados)));
     } else {
-        return {
-            campo: dados.campo,
-            valor: dados.valor,
-            erro: false,
-            mensagem: ``
-        };
+        return contratoValidacoesSemErro(dados.campo,dados.valor);
     };
 };

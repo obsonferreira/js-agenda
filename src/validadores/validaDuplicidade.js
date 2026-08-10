@@ -1,3 +1,4 @@
+import { contratoValidacoesComErro, contratoValidacoesSemErro } from "../contratos/validacoes.js";
 import { retornaMensagemContatoExistente } from "../mensagens/mensagensValidacao.js";
 
 export function validaDuplicidade(input, lista) {
@@ -7,18 +8,9 @@ export function validaDuplicidade(input, lista) {
     };
 
     if (resultadoBusca.dado) {
-        return {
-            campo: input.campo,
-            valor: input.valor,
-            erro: resultadoBusca.dado,
-            mensagem: retornaMensagemContatoExistente(input.campo)
-        };
+        return contratoValidacoesComErro(input.campo, input.valor, retornaMensagemContatoExistente(input.campo));
     } else {
-        return {
-            campo: input.campo,
-            valor: input.valor,
-            erro: resultadoBusca.dado,
-            mensagem: ""
-        };
+        return contratoValidacoesSemErro(input.campo, input.valor);
     };
+
 };
