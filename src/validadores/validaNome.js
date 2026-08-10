@@ -1,3 +1,4 @@
+import { contratoValidacoesComErro, contratoValidacoesSemErro } from '../contratos/validacoes.js';
 import { retornaMensagemEspaco, retornaMensagemTamanhoMinimo, retornaMensagemCaracterInvalido, retornaMensagemTamanhoMaximo } from '../mensagens/mensagensValidacao.js';
 import { retornaComposicaoInput } from './analisaTexto.js';
 
@@ -8,49 +9,15 @@ export function validaNome(input, campo) {
     const validacao = validaInputNome(componentes);
 
     if (validacao.quantidadeEspaco) {
-
-        resultado = {
-            campo: campo,
-            valor: inputMinusculo,
-            erro: true,
-            mensagem: retornaMensagemEspaco(campo)
-        };
-
+        resultado = contratoValidacoesComErro(campo,inputMinusculo,retornaMensagemEspaco(campo));
     } else if (validacao.caracteresInvalidos) {
-
-        resultado = {
-            campo: campo,
-            valor: inputMinusculo,
-            erro: true,
-            mensagem: retornaMensagemCaracterInvalido(campo, validacao.caracteres)
-        };
-
+        resultado = contratoValidacoesComErro(campo, inputMinusculo ,retornaMensagemCaracterInvalido(campo, validacao.caracteres));
     } else if (validacao.tamanhoMinimo) {
-
-        resultado = {
-            campo: campo,
-            valor: inputMinusculo,
-            erro: true,
-            mensagem: retornaMensagemTamanhoMinimo(campo,3)
-        };
-
+        resultado = contratoValidacoesComErro(campo, inputMinusculo,retornaMensagemTamanhoMinimo(campo,3));
     } else if (validacao.tamanhoMaximo) {
-
-        resultado = {
-            campo: campo,
-            valor: inputMinusculo,
-            erro: true,
-            mensagem: retornaMensagemTamanhoMaximo(campo, 20)
-        };
-
+        resultado = contratoValidacoesComErro(campo, inputMinusculo, retornaMensagemTamanhoMaximo(campo, 20));
     } else {
-
-        resultado = {
-            campo: campo,
-            valor: inputMinusculo,
-            erro: false,
-            mensagem: ""
-        };
+        resultado = contratoValidacoesSemErro(campo,inputMinusculo);
     };
     return resultado;
 };
