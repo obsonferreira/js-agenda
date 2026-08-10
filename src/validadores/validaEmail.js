@@ -1,3 +1,4 @@
+import { contratoValidacoesComErro, contratoValidacoesSemErro } from "../contratos/validacoes.js";
 import { retornaMensagemArrobaExtra, retornaMensagemCaracterConsecutivos, retornaMensagemCaracterInvalido, retornaMensagemComplementoDominio, retornaMensagemDominio, retornaMensagemEspaco, retornaMensagemFinalInvalido, retornaMensagemInicioInvalido, retornaMensagemPontoExtraDominio, retornaMensagemSemArroba, retornaMensagemSemPonto, retornaMensagemTamanhoMaximo, retornaMensagemTamanhoMinimo } from "../mensagens/mensagensValidacao.js";
 import { retornaComposicaoEmail } from "./analisaTexto.js";
 
@@ -7,147 +8,37 @@ export function validaEmail(input, campo) {
     const validacao = validaInputEmail(componentes);
 
     if (validacao.quantidadeEspaco) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemEspaco(campo)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemEspaco(campo));
     } else if (validacao.tamanhoMinimo) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemTamanhoMinimo(campo, 9)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemTamanhoMinimo(campo, 9));
     } else if (validacao.tamanhoMaximo) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemTamanhoMaximo(campo, 40)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemTamanhoMaximo(campo, 40));
     } else if (validacao.semArroba) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemSemArroba(campo)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemSemArroba(campo));
     } else if (validacao.arrobaExtra) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemArrobaExtra(campo)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemArrobaExtra(campo));
     } else if (validacao.caracteresInvalidosIdEmail) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosIdEmail)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosIdEmail));
     } else if (validacao.caracteresInvalidosDominioEmail) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosDominioEmail)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemCaracterInvalido(campo, componentes.caracteresInvalidosDominioEmail));
     } else if (validacao.semPontoDominio) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemSemPonto(campo)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemSemPonto(campo));
     } else if (validacao.nomeDominio) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemDominio()
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemDominio());
     } else if (validacao.complementoDominio) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemComplementoDominio(campo)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemComplementoDominio(campo));
     } else if (validacao.pontoExtraDominio) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemPontoExtraDominio(campo)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemPontoExtraDominio(campo));
     } else if (validacao.inicioInvalido) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemInicioInvalido(campo, componentes.primeiroDigitoEmail)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input, retornaMensagemInicioInvalido(campo, componentes.primeiroDigitoEmail));
     } else if (validacao.finalInvalido) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemFinalInvalido(campo, componentes.ultimoDigitoEmail)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input,retornaMensagemFinalInvalido(campo, componentes.ultimoDigitoEmail));
     } else if (validacao.caracterConsecutivosDominioEmail) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemCaracterConsecutivos(campo, componentes.caracterConsecutivosDominioEmail)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input,retornaMensagemCaracterConsecutivos(campo, componentes.caracterConsecutivosDominioEmail));
     } else if (validacao.caracterConsecutivosIdEmail) {
-
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: true,
-            mensagem: retornaMensagemCaracterConsecutivos(campo, componentes.caracterConsecutivosIdEmail)
-        };
-
+        resultado = contratoValidacoesComErro(campo, input,retornaMensagemCaracterConsecutivos(campo, componentes.caracterConsecutivosIdEmail));
     } else {
-        resultado = {
-            campo: campo,
-            valor: input,
-            erro: false,
-            mensagem: ""
-        };
+        resultado = contratoValidacoesSemErro(campo, input);
     };
     return resultado;
 };
