@@ -1,8 +1,8 @@
-import { buscaContato } from "../../repositorio/agendaRepositorio.js";
+import { buscarContato } from "../../repositorio/agendaRepositorio.js";
 import { elementoDialogoEdicao } from "./elementosAgenda.js";
 
 export function preencheFormulario(formulario, id) {
-    const dados = buscaContato(id);
+    const dados = buscarContato(id);
     
     for (const chave in dados) {
         if (formulario.elements[chave]) {

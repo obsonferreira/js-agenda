@@ -2,9 +2,9 @@ import { elementoDialogoAlertasAgenda, elementoAlertaAgenda, elementoDialogoEdic
 import { elementoDialogo, elementoAlerta } from "../cadastro/elementosCadastro.js";
 import { ocultarAtributo, exibirMensagem, exibirAtributo } from "./notificacoes.js";
 
-export function modalContatoSalvo() {
+export function modalContatoSalvo(mensagem) {
     elementoDialogo.modalCadastro.showModal();
-    exibirMensagem(elementoDialogo.contatoSalvo, 'Contato cadastrado com sucesso.');
+    exibirMensagem(elementoDialogo.contatoSalvo,mensagem);
 };
 
 export function mensagemContatoAlterado() {

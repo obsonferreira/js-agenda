@@ -4,7 +4,7 @@ import { bloquearBotao, desbloquearBotao, validaCamposObrigatorio, ocultaErrosVa
 import { elementoTabelaAgenda, elementoDialogoAlertasAgenda, elementoBuscaAgenda } from "./elementosAgenda.js";
 import { elementoVisorAgenda, elementoAlertaAgenda, elementoDialogoEdicao, elementoFormularioAgenda } from "./elementosAgenda.js";
 import { editarFormulario, verificaEdicao } from "./agendaFormulario.js";
-import { deletarContato, retornaLista, buscaContato } from "../../repositorio/agendaRepositorio.js";
+import { deletarContato, retornaLista } from "../../repositorio/agendaRepositorio.js";
 import { preencheFormulario, criarTabelaContato, retornaDadosTabela } from "./agendaTabela.js";
 import { alertaBuscaContato } from "./agendaBusca.js";
 import { mensagemContatoAlterado } from "../compartilhado/dialog.js";
@@ -134,7 +134,7 @@ function cancelarAlteracao() {
     });
 };
 
-function buscarContato() {
+function eventoBuscarContato() {
     elementoBuscaAgenda.botaoBusca.addEventListener("click", () => {
         const input = elementoBuscaAgenda.inputBusca.value;
         if (input.length <= 0) {
@@ -159,5 +159,5 @@ export function mainAgenda() {
     sairExclusaoFeita();
     cancelarExclusao();
 
-    buscarContato();
+    eventoBuscarContato();
 };

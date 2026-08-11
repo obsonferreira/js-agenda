@@ -2,14 +2,13 @@ import { agendaRepositorio } from "../modelos/agenda.js";
 
 agendaRepositorio.contatos = carregarContatos();
 
-export function salvarContato(pessoa) {
+export function salvar(pessoa) {
     pessoa.id = criarId();
     const dados = agendaRepositorio.adicionar(pessoa);
     if (dados) {
         localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
         return true;
     };
-    return false;
 };
 
 export function editarContato(dados, referencia) {
@@ -17,13 +16,13 @@ export function editarContato(dados, referencia) {
     if (!validacao) {
         return false;
     };
-    const edicao = ()=>{
+    const edicao = () => {
         const resultado = agendaRepositorio.atualizar(dados, referencia);
         if (resultado) {
             localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
             return true;
         };
-    }; 
+    };
     return edicao();
 };
 
@@ -37,7 +36,7 @@ export function deletarContato(referencia) {
     return exclusao;
 };
 
-export function buscaContato(referencia) {
+export function buscarContato(referencia) {
     const validacao = agendaRepositorio.contatos.some(pessoa => pessoa.id === referencia);
     if (!validacao) {
         return false;
@@ -45,7 +44,7 @@ export function buscaContato(referencia) {
     return agendaRepositorio.buscar(referencia);
 };
 
-export function carregarContatos() {
+function carregarContatos() {
     const dadosSalvo = localStorage.getItem('contatos');
     let arrayRecuperado;
     if (dadosSalvo == null) {

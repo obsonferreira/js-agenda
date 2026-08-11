@@ -1,7 +1,9 @@
-import { contratoValidacoesSemErro } from "../contratos/validacoes.js";
+import { contratoOperacaoSemFalha } from "../contratos/operacoes.js";
+import { contratoValidacoesComErro, contratoValidacoesSemErro } from "../contratos/validacoes.js";
+import { mensagemContatoInvalido, mensagemCriacaoContato } from "../mensagens/mensagensOperacao.js";
 import { Contato } from "../modelos/contato.js";
 import { Pessoa } from "../modelos/pessoa.js";
-import { retornaLista } from "../repositorio/agendaRepositorio.js";
+import { retornaLista, salvar } from "../repositorio/agendaRepositorio.js";
 import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
 
 export function criarPessoa(dadosObjeto) {
@@ -26,4 +28,22 @@ export function buscaDuplicidade(contato) {
         resultado.telefone = contratoValidacoesSemErro(contato.telefone.campo, contato.telefone.valor);
     };
     return resultado;
+};
+
+export function salvarContato(pessoa) {
+    console.log(pessoa);
+    if (pessoa.duplicidade.dadosInvalidos || pessoa.validacao.dadosInvalidos) {
+        
+        return contratoValidacoesComErro("contato-invalido",mensagemContatoInvalido());
+    } else {
+        const sucesso = salvar(pessoa.pessoa);
+        if (sucesso) {
+            return contratoOperacaoSemFalha(pessoa,mensagemCriacaoContato());
+        };
+        
+    };
+};
+
+export function editarContato(dados, referencia) {
+
 };

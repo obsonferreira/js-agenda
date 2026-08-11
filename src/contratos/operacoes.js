@@ -1,9 +1,9 @@
-export function contratoOperacaoSemFalha(contato) {
+export function contratoOperacaoSemFalha(dados,mensagem) {
     return {
         sucesso: true,
-        dados: contato,
+        dados: dados,
         erro: null,
-        mensagem: ""
+        mensagem: mensagem
     };
 
 };

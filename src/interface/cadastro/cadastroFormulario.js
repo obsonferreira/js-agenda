@@ -1,7 +1,7 @@
-import { salvarContato } from "../../repositorio/agendaRepositorio.js";
+import { salvarContato } from "../../servicos/agendaService.js";
 import { modalContatoSalvo } from "../compartilhado/dialog.js";
 
 export function enviarFormulario(dados) {
-    salvarContato(dados.pessoa);
-    modalContatoSalvo();
+    const resultado = salvarContato(dados);
+    modalContatoSalvo(resultado.mensagem);
 };
