@@ -3,7 +3,7 @@ import { criarPessoa } from "../../servicos/agendaService.js";
 import { validaPessoa } from "../../validadores/validaPessoa.js";
 import { validaEntrada } from "../../validadores/validaCampo.js";
 import { validacaoGeral } from './../../validadores/compartilhado.js';
-import { buscaDuplicidade } from "../../repositorio/agendaRepositorio.js";
+import { buscaDuplicidade } from './../../servicos/agendaService.js';
 
 export function exibirErrosValidacao(validacao, elementoAlerta) {
     if (validacao.nome) {

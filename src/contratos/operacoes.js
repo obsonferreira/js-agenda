@@ -10,7 +10,7 @@ export function contratoOperacaoSemFalha(contato) {
 
 export function contratoOperacaoComFalha(erro,mensagem) {
     return {
-        sucesso: true,
+        sucesso: false,
         dados: null,
         erro: erro,
         mensagem: mensagem

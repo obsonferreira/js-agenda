@@ -1,30 +1,48 @@
-import { contratoValidacoesSemErro } from "../contratos/validacoes.js";
 import { agendaRepositorio } from "../modelos/agenda.js";
-import { atualizarPessoa } from "../servicos/agendaService.js";
-import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
 
 agendaRepositorio.contatos = carregarContatos();
 
 export function salvarContato(pessoa) {
     pessoa.id = criarId();
-    agendaRepositorio.adicionar(pessoa);
-    localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
+    const dados = agendaRepositorio.adicionar(pessoa);
+    if (dados) {
+        localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
+        return true;
+    };
+    return false;
 };
 
-export function editarContato(dados, parametro) {
-    const pessoa = agendaRepositorio.buscar(parametro);
-    const novaPessoa = atualizarPessoa(pessoa, dados);
-    agendaRepositorio.atualizar(novaPessoa, parametro);
-    localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
+export function editarContato(dados, referencia) {
+    const validacao = agendaRepositorio.contatos.some(pessoa => pessoa.id === referencia);
+    if (!validacao) {
+        return false;
+    };
+    const edicao = ()=>{
+        const resultado = agendaRepositorio.atualizar(dados, referencia);
+        if (resultado) {
+            localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
+            return true;
+        };
+    }; 
+    return edicao();
 };
 
 export function deletarContato(referencia) {
-    agendaRepositorio.excluir(referencia);
+    const validacao = agendaRepositorio.contatos.some(pessoa => pessoa.id === referencia);
+    if (!validacao) {
+        return false;
+    };
+    const exclusao = agendaRepositorio.excluir(referencia);
     localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
+    return exclusao;
 };
 
-export function buscaContato(input) {
-    return agendaRepositorio.buscar(input);
+export function buscaContato(referencia) {
+    const validacao = agendaRepositorio.contatos.some(pessoa => pessoa.id === referencia);
+    if (!validacao) {
+        return false;
+    };
+    return agendaRepositorio.buscar(referencia);
 };
 
 export function carregarContatos() {
@@ -44,41 +62,25 @@ export function retornaLista() {
     return agendaRepositorio.listar();
 };
 
-export function retornaId(input) {
+export function retornaId(referencia) {
     const lista = agendaRepositorio.listar();
     const verificacao = {
-        telefone: lista.some(usuario => usuario.contato.telefone === input.contato.telefone),
-        email: lista.some(usuario => usuario.contato.email === input.contato.email)
+        telefone: lista.some(usuario => usuario.contato.telefone === referencia.contato.telefone),
+        email: lista.some(usuario => usuario.contato.email === referencia.contato.email)
     };
     const id = (verificacao) => {
         const resultado = [];
         if (verificacao.telefone) {
 
-            resultado.push(lista.find(usuario => usuario.contato.telefone === input.contato.telefone).id);
+            resultado.push(lista.find(usuario => usuario.contato.telefone === referencia.contato.telefone).id);
         };
         if (verificacao.email) {
 
-            resultado.push(lista.find(usuario => usuario.contato.email === input.contato.email).id);
-        };  
+            resultado.push(lista.find(usuario => usuario.contato.email === referencia.contato.email).id);
+        };
         return parseInt([...new Set(resultado)]);
     };
     return id(verificacao);
-};
-
-export function buscaDuplicidade(contato) {
-    const resultado = {};
-    if (!contato.email.erro) {
-        resultado.email = validaDuplicidade(contato.email, retornaLista());
-    } else {
-        resultado.email = contratoValidacoesSemErro(contato.email.campo,contato.email.valor);
-    };
-
-    if (!contato.telefone.erro) {
-        resultado.telefone = validaDuplicidade(contato.telefone, retornaLista());
-    } else {
-        resultado.telefone = contratoValidacoesSemErro(contato.telefone.campo,contato.telefone.valor);
-    };
-    return resultado;
 };
 
 function criarId() {
