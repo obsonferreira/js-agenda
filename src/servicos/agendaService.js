@@ -1,9 +1,9 @@
 import { contratoOperacaoComFalha, contratoOperacaoSemFalha } from "../contratos/operacoes.js";
 import { contratoValidacoesSemErro } from "../contratos/validacoes.js";
-import { mensagemContatoInvalido, mensagemCriacaoContato, mensagemErroContato } from "../mensagens/mensagensOperacao.js";
+import { mensagemAlteracaoContato, mensagemContatoInvalido, mensagemContatoNaoEncontrado, mensagemCriacaoContato, mensagemErroContato, mensagemErroEditar } from "../mensagens/mensagensOperacao.js";
 import { Contato } from "../modelos/contato.js";
 import { Pessoa } from "../modelos/pessoa.js";
-import { retornaLista, salvar } from "../repositorio/agendaRepositorio.js";
+import { buscarContato, editar, retornaLista, salvar } from "../repositorio/agendaRepositorio.js";
 import { validaDuplicidade } from "../validadores/validaDuplicidade.js";
 
 export function criarPessoa(dadosObjeto) {
@@ -32,17 +32,32 @@ export function buscaDuplicidade(contato) {
 
 export function salvarContato(dados) {
     if (dados.duplicidade.dadosInvalidos || dados.validacao.dadosInvalidos) {
-        return contratoOperacaoComFalha("contato-invalido",mensagemContatoInvalido());
+        return contratoOperacaoComFalha("contato-invalido", mensagemContatoInvalido());
     } else {
-        const sucesso = salvar(dados.pessoa); 
+        const sucesso = salvar(dados.pessoa);
         if (!sucesso) {
-            return contratoOperacaoComFalha('erro-ao-processar-contato',mensagemErroContato());
+            return contratoOperacaoComFalha('erro-ao-processar-contato', mensagemErroContato());
         };
-        return contratoOperacaoSemFalha(dados.pessoa,mensagemCriacaoContato());
-        
+        return contratoOperacaoSemFalha(dados.pessoa, mensagemCriacaoContato());
+
     };
 };
 
-// export function editarContato(dados, referencia) {
+export function editarContato(dados) {
+    console.log(dados);
+    
+    const verificacao = buscarContato(dados.referencia);
+    if (!verificacao) {
+        return contratoOperacaoComFalha('contato-nao-encontrado', mensagemContatoNaoEncontrado());
+    };
+    if (dados.duplicidade.dadosInvalidos || dados.validacao.dadosInvalidos) {
+        return contratoOperacaoComFalha('dados-invalidos', mensagemContatoInvalido());
+        
+    }
+    const resultado = editar(dados, referencia);
+    if (!resultado) {
+        return contratoOperacaoComFalha('erro-ao-editar-contato',mensagemErroEditar());
+    };
+    return contratoOperacaoSemFalha(dados,mensagemAlteracaoContato());
 
-// };
+};

@@ -7,7 +7,7 @@ import { editarFormulario, verificaEdicao } from "./agendaFormulario.js";
 import { buscarContato, deletarContato, retornaLista } from "../../repositorio/agendaRepositorio.js";
 import { preencheFormulario, criarTabelaContato, retornaDadosTabela } from "./agendaTabela.js";
 import { alertaBuscaContato } from "./agendaBusca.js";
-import { mensagemContatoAlterado } from "../compartilhado/dialog.js";
+import { mensagemOperacoes } from "../compartilhado/dialog.js";
 
 let referencia;
 let dadosEdicao;
@@ -52,9 +52,11 @@ function iniciarEdicao() {
             exibirErrosValidacao(duplicidade, elementoAlertaAgenda);
         };
 
-        if (!validacao.dadosInvalidos && !duplicidade.dadosInvalidos) {
-            editarFormulario(dadosFormulario);
-            mensagemContatoAlterado();
+        const resultado = editarFormulario(dadosFormulario);
+        console.log(resultado);
+        
+        mensagemOperacoes(resultado.mensagem);
+        if (resultado.sucesso) {
         };
     });
 };
@@ -90,15 +92,9 @@ function validaCamposFormulario() {
     });
 };
 
-function sairEdicaoFeita() {
-    elementoDialogoAlertasAgenda.botaoSairAlteracao.addEventListener("click", () => {
+function sairOperacao() {
+    elementoDialogoAlertasAgenda.botaoSairOperacao.addEventListener("click", () => {
         elementoDialogoAlertasAgenda.modalAlertas.close();
-        location.reload();
-    });
-};
-
-function sairExclusaoFeita() {
-    elementoDialogoAlertasAgenda.botaoSairExclusao.addEventListener("click", () => {
         location.reload();
     });
 };
@@ -152,11 +148,10 @@ export function mainAgenda() {
     editarContatoAgenda();
     validaCamposFormulario();
     cancelarAlteracao();
-    sairEdicaoFeita()
+    sairOperacao()
 
     excluirContatoAgenda();
     confirmarExclusao();
-    sairExclusaoFeita();
     cancelarExclusao();
 
     eventoBuscarContato();

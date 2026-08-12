@@ -21,3 +21,7 @@ export function mensagemAlteracaoContato(){
 export function mensagemErroContato(){
     return "Não foi possível cadastrar o contato."
 };
+
+export function mensagemErroEditar(){
+    return "Não foi possível editar o contato."
+};

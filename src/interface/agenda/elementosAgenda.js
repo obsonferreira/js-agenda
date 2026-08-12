@@ -3,8 +3,8 @@ export const elementoAlertaAgenda = {
     sobrenome: document.getElementById("alerta-sobrenome"),
     telefone: document.getElementById("alerta-telefone"),
     email: document.getElementById("alerta-email"),
-    contato: document.getElementById("alerta-sem-contato")
-
+    contato: document.getElementById("alerta-sem-contato"),
+    operacoes: document.getElementById("alerta-operacao")
 };
 
 export const elementoDialogoEdicao = {
@@ -23,10 +23,9 @@ export const elementoDialogoAlertasAgenda = {
     modalAlertas: document.getElementById("caixa-alertas"),
     botaoSim: document.getElementById("btn-sim"),
     botaoNao: document.getElementById("btn-nao"),
-    botaoSairAlteracao: document.getElementById("btn-sair-alteracao"),
+    botaoSairOperacao: document.getElementById("btn-sair-operacao"),
     botaoSairExclusao: document.getElementById("btn-sair-exclusao"),
-    mensagemAlteracao: document.getElementById("container-mensagem-alteracao"),
-    mensagemExclusao: document.getElementById("container-mensagem-exclusao"),
+    mensagemOperacoes: document.getElementById("container-mensagens-operacoes"),
     selecaoExclusao: document.getElementById("container-selecao-exclusao")
 };
 

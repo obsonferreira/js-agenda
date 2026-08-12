@@ -12,17 +12,14 @@ export function salvar(pessoa) {
     return true;
 };
 
-export function editarContato(dados, referencia) {
-    const validacao = agendaRepositorio.contatos.some(pessoa => pessoa.id === referencia);
-    if (!validacao) {
-        return false;
-    };
+export function editar(dados, referencia) {
     const edicao = () => {
         const resultado = agendaRepositorio.atualizar(dados, referencia);
-        if (resultado) {
-            localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
-            return true;
+        if (!resultado) {
+            return false;
         };
+        localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
+        return true;
     };
     return edicao();
 };

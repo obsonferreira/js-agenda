@@ -7,8 +7,9 @@ export function modalResultadoCadastro(mensagem) {
     exibirMensagem(elementoDialogo.resultadoCadastro, mensagem);
 };
 
-export function mensagemContatoAlterado() {
-    elementoDialogoEdicao.modalEdicao.close();
-    exibirAtributo(elementoDialogoAlertasAgenda.mensagemAlteracao);
-    elementoDialogoAlertasAgenda.modalAlertas.showModal();
+export function mensagemOperacoes(mensagem) {
+    // elementoDialogoEdicao.modalEdicao.close();
+    exibirAtributo(elementoDialogoAlertasAgenda.mensagemOperacoes);
+    exibirMensagem(elementoAlertaAgenda.operacoes,mensagem);
+    // elementoDialogoAlertasAgenda.modalAlertas.showModal();
 };
