@@ -1,7 +1,7 @@
 import { elementoAlerta, elementoBotoes, elementoCadastro, elementoDialogo } from "./elementosCadastro.js";
 import { validaFormulario, bloquearBotao, desbloquearBotao, validaCamposObrigatorio, processaFormulario, exibirErrosValidacao, validaDuplicidadeFormulario, ocultaErrosValidacao } from "../compartilhado/formulario.js";
 import { enviarFormulario } from "./cadastroFormulario.js";
-import { modalContatoSalvo } from "../compartilhado/dialog.js";
+import { modalResultadoCadastro } from "../compartilhado/dialog.js";
 
 function iniciarCadastro() {
     elementoCadastro.formulario.addEventListener("submit", (event) => {
@@ -23,8 +23,8 @@ function iniciarCadastro() {
         };
 
         const resultado = enviarFormulario(dadosFormulario);
-        modalContatoSalvo(resultado.mensagem);
-        
+        modalResultadoCadastro(resultado.mensagem);
+
         if (resultado.sucesso) {
             elementoCadastro.formulario.reset();
         };

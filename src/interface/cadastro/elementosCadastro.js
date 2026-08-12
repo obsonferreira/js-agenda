@@ -12,7 +12,7 @@ export const elementoAlerta = {
 
 export const elementoDialogo = {
     modalCadastro: document.getElementById('caixa-alerta'),
-    contatoSalvo: document.getElementById('alerta-contato-salvo'),
+    resultadoCadastro: document.getElementById('alerta-resultado-cadastro'),
     botaoFechar: document.getElementById('fechar-mensagem')
 };
 
