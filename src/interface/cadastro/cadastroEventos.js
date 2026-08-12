@@ -21,8 +21,8 @@ function iniciarCadastro() {
             exibirErrosValidacao(duplicidade, elementoAlerta);
         };
 
+        enviarFormulario(dadosFormulario);
         if (!validacao.dadosInvalidos && !duplicidade.dadosInvalidos) {
-            enviarFormulario(dadosFormulario);
             elementoCadastro.formulario.reset();
         };
 

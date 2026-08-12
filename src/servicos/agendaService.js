@@ -1,6 +1,6 @@
-import { contratoOperacaoSemFalha } from "../contratos/operacoes.js";
-import { contratoValidacoesComErro, contratoValidacoesSemErro } from "../contratos/validacoes.js";
-import { mensagemContatoInvalido, mensagemCriacaoContato } from "../mensagens/mensagensOperacao.js";
+import { contratoOperacaoComFalha, contratoOperacaoSemFalha } from "../contratos/operacoes.js";
+import { contratoValidacoesSemErro } from "../contratos/validacoes.js";
+import { mensagemContatoInvalido, mensagemCriacaoContato, mensagemErroContato } from "../mensagens/mensagensOperacao.js";
 import { Contato } from "../modelos/contato.js";
 import { Pessoa } from "../modelos/pessoa.js";
 import { retornaLista, salvar } from "../repositorio/agendaRepositorio.js";
@@ -30,20 +30,19 @@ export function buscaDuplicidade(contato) {
     return resultado;
 };
 
-export function salvarContato(pessoa) {
-    console.log(pessoa);
-    if (pessoa.duplicidade.dadosInvalidos || pessoa.validacao.dadosInvalidos) {
-        
-        return contratoValidacoesComErro("contato-invalido",mensagemContatoInvalido());
+export function salvarContato(dados) {
+    if (dados.duplicidade.dadosInvalidos || dados.validacao.dadosInvalidos) {
+        return contratoOperacaoComFalha("contato-invalido",mensagemContatoInvalido());
     } else {
-        const sucesso = salvar(pessoa.pessoa);
-        if (sucesso) {
-            return contratoOperacaoSemFalha(pessoa,mensagemCriacaoContato());
+        const sucesso = salvar(dados.pessoa); 
+        if (!sucesso) {
+            return contratoOperacaoComFalha('erro-ao-processar-contato',mensagemErroContato());
         };
+        return contratoOperacaoSemFalha(dados.pessoa,mensagemCriacaoContato());
         
     };
 };
 
-export function editarContato(dados, referencia) {
+// export function editarContato(dados, referencia) {
 
-};
+// };

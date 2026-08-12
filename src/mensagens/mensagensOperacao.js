@@ -17,3 +17,7 @@ export function mensagemContatoInvalido(){
 export function mensagemAlteracaoContato(){
     return "Contato atualizado com sucesso."
 };
+
+export function mensagemErroContato(){
+    return "Não foi possível cadastrar o contato."
+};

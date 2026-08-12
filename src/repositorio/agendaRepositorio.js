@@ -5,10 +5,11 @@ agendaRepositorio.contatos = carregarContatos();
 export function salvar(pessoa) {
     pessoa.id = criarId();
     const dados = agendaRepositorio.adicionar(pessoa);
-    if (dados) {
-        localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
-        return true;
+    if (!dados) {
+        return false;
     };
+    localStorage.setItem('contatos', JSON.stringify(agendaRepositorio.contatos));
+    return true;
 };
 
 export function editarContato(dados, referencia) {
