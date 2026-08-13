@@ -1,20 +1,19 @@
 import { ocultarAtributo, exibirAtributo, exibirMensagem } from "./../compartilhado/notificacoes.js";
 import { exibirErrosValidacao, processaFormulario, validaDuplicidadeFormulario, validaFormulario } from "./../compartilhado/formulario.js";
-import { bloquearBotao, desbloquearBotao, validaCamposObrigatorio, ocultaErrosValidacao } from "./../compartilhado/formulario.js";
+import { desbloquearBotao, validaCamposObrigatorio, ocultaErrosValidacao } from "./../compartilhado/formulario.js";
 import { elementoTabelaAgenda, elementoDialogoAlertasAgenda, elementoBuscaAgenda } from "./elementosAgenda.js";
 import { elementoVisorAgenda, elementoAlertaAgenda, elementoDialogoEdicao, elementoFormularioAgenda } from "./elementosAgenda.js";
 import { editarFormulario, verificaEdicao } from "./agendaFormulario.js";
 import { buscarContato, deletarContato, retornaLista } from "../../repositorio/agendaRepositorio.js";
 import { preencheFormulario, criarTabelaContato, retornaDadosTabela } from "./agendaTabela.js";
 import { alertaBuscaContato } from "./agendaBusca.js";
-import { mensagemOperacoes } from "../compartilhado/dialog.js";
+import { exibirDialogo, mensagemOperacoes, ocultarDialogo } from "../compartilhado/dialog.js";
 
 let referencia;
 let dadosEdicao;
 
 function iniciarAgenda() {
     const lista = retornaLista();
-
     document.addEventListener("DOMContentLoaded", () => {
         let quantidadeContatos = lista.length;
 
@@ -28,6 +27,38 @@ function iniciarAgenda() {
             const tabela = criarTabelaContato(lista);
             elementoTabelaAgenda.tabela.appendChild(tabela);
         };
+    });
+};
+
+function editarContatoAgenda() {
+    elementoTabelaAgenda.tabela.addEventListener("click", (event) => {
+        event.preventDefault();
+        const click = event.target;
+        if (click.tagName === 'BUTTON') {
+            const linhaTabela = click.closest('tr');
+            const dadosTabela = retornaDadosTabela(linhaTabela);
+            const id = Number(linhaTabela.dataset.id);
+            dadosEdicao = dadosTabela;
+            referencia = id;
+            exibirDialogo(elementoDialogoEdicao.modalEdicao);
+            preencheFormulario(elementoFormularioAgenda.formulario, referencia);
+        };
+    });
+};
+
+function validaCamposFormulario() {
+
+    elementoFormularioAgenda.formulario.addEventListener('input', (evento) => {
+        const campoEdicao = evento.target;
+        const campos = validaCamposObrigatorio(elementoFormularioAgenda.formulario);
+
+        if (campoEdicao.name) {
+            ocultaErrosValidacao(campoEdicao.name, elementoAlertaAgenda)
+        };
+        if (campos.dadosInvalidos) {
+            exibirErrosValidacao(campos, elementoAlertaAgenda);
+        };
+        desbloquearBotao(!campos.dadosInvalidos, elementoFormularioAgenda);
     });
 };
 
@@ -51,50 +82,28 @@ function iniciarEdicao() {
         } else if (duplicidade.dadosInvalidos) {
             exibirErrosValidacao(duplicidade, elementoAlertaAgenda);
         };
-
         const resultado = editarFormulario(dadosFormulario);
-        console.log(resultado);
-        
+        ocultarDialogo(elementoDialogoEdicao.modalEdicao)
+        exibirDialogo(elementoDialogoAlertasAgenda.modalAlertas);
         mensagemOperacoes(resultado.mensagem);
-        if (resultado.sucesso) {
+        if (!resultado.sucesso) {
+            ocultarAtributo(elementoDialogoAlertasAgenda.botaoSairOperacao);
         };
     });
 };
 
-function editarContatoAgenda() {
-    elementoTabelaAgenda.tabela.addEventListener("click", (event) => {
-        event.preventDefault();
-        const click = event.target;
-        if (click.tagName === 'BUTTON') {
-            const linhaTabela = click.closest('tr');
-            const dadosTabela = retornaDadosTabela(linhaTabela);
-            const id = Number(linhaTabela.dataset.id);
-            dadosEdicao = dadosTabela;
-            referencia = id;
-            preencheFormulario(elementoFormularioAgenda.formulario, referencia);
-        };
-    });
-};
-
-function validaCamposFormulario() {
-
-    elementoFormularioAgenda.formulario.addEventListener('input', (evento) => {
-        const campoEdicao = evento.target;
-        const campos = validaCamposObrigatorio(elementoFormularioAgenda.formulario);
-
-        if (campoEdicao.name) {
-            ocultaErrosValidacao(campoEdicao.name, elementoAlertaAgenda)
-        };
-        if (campos.dadosInvalidos) {
-            exibirErrosValidacao(campos, elementoAlertaAgenda);
-        };
-        desbloquearBotao(!campos.dadosInvalidos, elementoFormularioAgenda);
+function alterarContatoInvalido() {
+    elementoDialogoAlertasAgenda.botaoAlterar.addEventListener('click', () => {
+        exibirDialogo(elementoDialogoEdicao.modalEdicao);
+        ocultarDialogo(elementoDialogoAlertasAgenda.modalAlertas);
+        exibirAtributo(elementoDialogoAlertasAgenda.botaoSairOperacao);
+        ocultarAtributo(elementoDialogoAlertasAgenda.botaoAlterar);
     });
 };
 
 function sairOperacao() {
     elementoDialogoAlertasAgenda.botaoSairOperacao.addEventListener("click", () => {
-        elementoDialogoAlertasAgenda.modalAlertas.close();
+        ocultarDialogo(elementoDialogoAlertasAgenda.modalAlertas);
         location.reload();
     });
 };
@@ -148,6 +157,7 @@ export function mainAgenda() {
     editarContatoAgenda();
     validaCamposFormulario();
     cancelarAlteracao();
+    alterarContatoInvalido();
     sairOperacao()
 
     excluirContatoAgenda();

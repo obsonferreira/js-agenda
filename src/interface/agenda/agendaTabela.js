@@ -1,5 +1,4 @@
 import { buscarContato } from "../../repositorio/agendaRepositorio.js";
-import { elementoDialogoEdicao } from "./elementosAgenda.js";
 
 export function preencheFormulario(formulario, id) {
     const dados = buscarContato(id);
@@ -17,8 +16,6 @@ export function preencheFormulario(formulario, id) {
             };
         };
     };
-
-    elementoDialogoEdicao.modalEdicao.showModal();
 };
 
 function criarCelula(texto) {

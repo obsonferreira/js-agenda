@@ -23,6 +23,7 @@ export const elementoDialogoAlertasAgenda = {
     modalAlertas: document.getElementById("caixa-alertas"),
     botaoSim: document.getElementById("btn-sim"),
     botaoNao: document.getElementById("btn-nao"),
+    botaoAlterar: document.getElementById("btn-alterar"),
     botaoSairOperacao: document.getElementById("btn-sair-operacao"),
     botaoSairExclusao: document.getElementById("btn-sair-exclusao"),
     mensagemOperacoes: document.getElementById("container-mensagens-operacoes"),

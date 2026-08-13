@@ -1,4 +1,4 @@
-import { elementoDialogoAlertasAgenda, elementoAlertaAgenda, elementoDialogoEdicao } from "../agenda/elementosAgenda.js";
+import { elementoDialogoAlertasAgenda, elementoAlertaAgenda } from "../agenda/elementosAgenda.js";
 import { elementoDialogo } from "../cadastro/elementosCadastro.js";
 import { exibirMensagem, exibirAtributo } from "./notificacoes.js";
 
@@ -8,8 +8,14 @@ export function modalResultadoCadastro(mensagem) {
 };
 
 export function mensagemOperacoes(mensagem) {
-    // elementoDialogoEdicao.modalEdicao.close();
     exibirAtributo(elementoDialogoAlertasAgenda.mensagemOperacoes);
     exibirMensagem(elementoAlertaAgenda.operacoes,mensagem);
-    // elementoDialogoAlertasAgenda.modalAlertas.showModal();
+};
+
+export function ocultarDialogo(dialogo) {
+    dialogo.close();
+};
+
+export function exibirDialogo(dialogo) {
+    dialogo.showModal();
 };
