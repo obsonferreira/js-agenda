@@ -44,8 +44,6 @@ export function salvarContato(dados) {
 };
 
 export function editarContato(dados) {
-    console.log(dados);
-
     const verificacao = buscarContato(dados.referencia);
     if (!verificacao) {
         return contratoOperacaoComFalha('contato-nao-encontrado', mensagemContatoNaoEncontrado());
@@ -58,6 +56,5 @@ export function editarContato(dados) {
     if (!resultado) {
         return contratoOperacaoComFalha('erro-ao-editar-contato', mensagemErroEditar());
     };
-    return contratoOperacaoSemFalha(dados, mensagemAlteracaoContato());
-
+    return contratoOperacaoSemFalha(dados.pessoa, mensagemAlteracaoContato());
 };

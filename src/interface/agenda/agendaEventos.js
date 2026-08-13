@@ -16,9 +16,7 @@ function iniciarAgenda() {
     const lista = retornaLista();
     document.addEventListener("DOMContentLoaded", () => {
         let quantidadeContatos = lista.length;
-
         elementoVisorAgenda.contador.textContent = `${quantidadeContatos <= 1 ? "Contato salvo" : "Contatos salvos"}: ${quantidadeContatos}`;
-
         if (quantidadeContatos === 0) {
             exibirAtributo(elementoAlertaAgenda.contato);
             exibirMensagem(elementoAlertaAgenda.contato, "Nenhum contato cadastrado.");
@@ -83,20 +81,21 @@ function iniciarEdicao() {
             exibirErrosValidacao(duplicidade, elementoAlertaAgenda);
         };
         const resultado = editarFormulario(dadosFormulario);
-        ocultarDialogo(elementoDialogoEdicao.modalEdicao)
         exibirDialogo(elementoDialogoAlertasAgenda.modalAlertas);
         mensagemOperacoes(resultado.mensagem);
-        if (!resultado.sucesso) {
-            ocultarAtributo(elementoDialogoAlertasAgenda.botaoSairOperacao);
+        if (resultado.erro === "dados-invalidos") {
+            exibirAtributo(elementoDialogoAlertasAgenda.botaoAlterar);
+        }else{
+            ocultarDialogo(elementoDialogoEdicao.modalEdicao);
+            exibirAtributo(elementoDialogoAlertasAgenda.botaoSairOperacao);
         };
     });
 };
 
 function alterarContatoInvalido() {
     elementoDialogoAlertasAgenda.botaoAlterar.addEventListener('click', () => {
-        exibirDialogo(elementoDialogoEdicao.modalEdicao);
         ocultarDialogo(elementoDialogoAlertasAgenda.modalAlertas);
-        exibirAtributo(elementoDialogoAlertasAgenda.botaoSairOperacao);
+        ocultarAtributo(elementoDialogoAlertasAgenda.botaoSairOperacao);
         ocultarAtributo(elementoDialogoAlertasAgenda.botaoAlterar);
     });
 };
